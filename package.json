@@ -1,0 +1,31 @@
+{
+  "name": "legalize-next",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "form-data": "^4.0.0",
+    "is-corrupted-jpeg": "^1.0.2",
+    "multer": "^1.4.3",
+    "multiselect-react-dropdown": "^2.0.7",
+    "next": "12.0.2",
+    "node-html-to-image": "^3.2.0",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.4.4",
+    "react": "17.0.2",
+    "react-datepicker": "^4.3.0",
+    "react-dom": "17.0.2",
+    "sharp": "^0.29.2",
+    "swiper": "^7.2.0"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "12.0.2"
+  }
+}

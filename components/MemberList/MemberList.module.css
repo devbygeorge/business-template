@@ -1,0 +1,48 @@
+/*--------------------------------------------------------------
+# Members List
+--------------------------------------------------------------*/
+  .search {
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  
+  .list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list a {
+    margin-top: 10px;
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: flex;
+    align-items: center;
+  }
+  
+  .list a:hover {
+    color: #000;
+    background-color: #eee;
+  }
+  
+  .image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .list span {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+  }

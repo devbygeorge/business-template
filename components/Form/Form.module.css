@@ -1,0 +1,26 @@
+/*--------------------------------------------------------------
+# Form Styles
+--------------------------------------------------------------*/
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-transform: capitalize;
+}
+
+.form select {
+  cursor: pointer;
+}
+
+.button {
+  width: 100%;
+  border: none;
+  color: #fff;
+  background: var(--light-blue);
+  padding: 10px;
+  transition: 0.3s ease-out;
+}
+
+.button:hover {
+  background: var(--blue);
+}

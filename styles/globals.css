@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'BPG Arial';
+  src: url('/fonts/bpg-arial/bpg-arial-webfont.eot'); 
+  src: url('/fonts/bpg-arial/bpg-arial-webfont.eot?#iefix') format('embedded-opentype'), 
+       url('/fonts/bpg-arial/bpg-arial-webfont.woff2') format('woff2'), 
+       url('/fonts/bpg-arial/bpg-arial-webfont.woff') format('woff'), 
+       url('/fonts/bpg-arial/bpg-arial-webfont.ttf') format('truetype'), 
+       url('/fonts/bpg-arial/bpg-arial-webfont.svg#bpg_arialregular') format('svg'); 
+}
+
+body {
+  font-family: "BPG Arial", sans-serif;
+  color: var(--light-blue);
+  overflow-x: hidden;
+  padding-top: 6.5rem;
+}
+
+a {
+  color: var(--light-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "BPG Arial", sans-serif;
+}
+
+/*--------------------------------------------------------------
+# Sections General
+--------------------------------------------------------------*/
+section {
+  padding: 3.5rem 0;
+  overflow: hidden;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  color: var(--light-blue);
+  text-align: center;
+}
+
+.paragraph {
+  margin-bottom: 2rem;
+  font-size: 14px;
+  color: #919191;
+  text-align: center;
+}
+
+.back-color {
+  background-color: #f8fbfe;
+}
+
+
+/* FAQ Styles */
+a.collapsed .icon-show {
+  display: inline-block !important;
+}
+
+a.collapsed .icon-close {
+  display: none !important;
+}
+
+
+/* Documents Download Styles */
+.documents {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.document-canvas {
+  margin: 1rem;
+  padding: 1rem 0.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.document-canvas i {
+  margin-left: .2rem;
+  font-size: 1.5rem;
+}
+
+.document-canvas:hover {
+  transform: scale(1.01);
+}

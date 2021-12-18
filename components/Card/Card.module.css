@@ -1,0 +1,177 @@
+/*--------------------------------------------------------------
+# Members Cards
+--------------------------------------------------------------*/
+@font-face {
+  font-family: 'BPG Square Banner 2013';
+  src: url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.eot');
+  src: url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.eot?#iefix') format('embedded-opentype'),
+      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.woff2') format('woff2'),
+      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.woff') format('woff'),
+      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.ttf') format('truetype'),
+      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.svg') format('svg');
+}
+
+@font-face {
+  font-family: 'BPG Square Banner Caps 2013';
+  src: url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.eot');
+  src: url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.eot?#iefix') format('embedded-opentype'),
+      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.woff2') format('woff2'),
+      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.woff') format('woff'),
+      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.ttf') format('truetype'),
+      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.svg') format('svg');
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 1.2rem 0;
+}
+
+.card {
+  font-family: "BPG Square Banner Caps 2013", sans-serif;
+  width: 500.775px;
+  height: 802.5px;
+  border: 2px solid #ddd;
+  color: #161616;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.card * {
+  font-family: inherit;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.card header {
+  background-color: transparent;
+  border: 0;
+  padding: 27.5px 25px 0 25px;
+  margin-bottom: 5rem;
+
+}
+
+.card header h3 {
+  font-size: 25px;
+  margin-bottom: 1rem;
+
+}
+
+.card header span {
+  font-size: 18px;
+  color: var(--blue);
+}
+
+.card main {
+  padding: 0 25px;
+  flex: 1;
+}
+
+.card main span {
+  font-family: "BPG Square Banner 2013", sans-serif;
+  font-size: 12.5px;
+  opacity: 0.5;
+}
+
+.card main h4 {
+  font-size: 27.5px;
+  margin: 14px 0 60px;
+  letter-spacing: -1px;
+}
+  
+.badge {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #fff;
+  margin-top: -1.5rem;
+  overflow: hidden;
+
+  position: absolute;
+  left: 25px;
+  bottom: 112.5px;
+
+  -webkit-filter: grayscale(40%);
+  filter: grayscale(40%);
+}
+
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  overflow: hidden;
+
+  position: absolute;
+  right: 60px;
+  top: 435px;
+}
+
+.barcode {
+  width: 105px;
+  height: 105px;
+
+  position: absolute;
+  right: 50px;
+  top: 43%;
+}
+
+.card footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  
+  height: 92.5px;
+  color: #fff;
+  background: var(--blue);
+}
+
+/*--------------------------------------------------------------
+# Cards Responsiveness
+--------------------------------------------------------------*/
+
+@media(max-width: 995px){
+  .wrapper {
+    flex-direction: column;
+  }
+}
+
+@media(max-width: 535px){
+  .wrapper {
+    transform: scale(0.9);
+    transform-origin: center top;
+    margin-bottom: -150px;
+  }
+}
+
+@media(max-width: 475px){
+  .wrapper {
+    transform: scale(0.8);
+    margin-bottom: -275px;
+  }
+}
+
+@media(max-width: 415px){
+  .wrapper {
+    transform: scale(0.7);
+    margin-bottom: -455px;
+  }
+}
+
+@media(max-width: 370px){
+  .wrapper {
+    transform: scale(0.6);
+    margin-bottom: -615px;
+  }
+}
