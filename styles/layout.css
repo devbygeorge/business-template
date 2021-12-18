@@ -472,6 +472,7 @@
   .login-image {
     width: 40px;
     height: 40px;
+    object-fit: cover;
   }
 
   .login-name {

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 export default function LoginForm() {
@@ -12,9 +11,7 @@ export default function LoginForm() {
 
         <Link href={`/creation`} passHref >
           <div className="login-info">
-            <div className="login-image">
-              <Image src={session.user.image} layout="fill" objectFit="cover" alt="Profile Picture" />
-            </div>
+            <img className="login-image" src={session.user.image} alt="Profile Picture" />
             <h4 className="login-name">{session.user.name}</h4>
           </div>
         </Link>
