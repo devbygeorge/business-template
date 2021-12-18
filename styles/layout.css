@@ -426,6 +426,7 @@
   border-radius: 50%;
   object-fit: cover;
   overflow: hidden;
+  position: relative;
 }
 
 .login-name {
@@ -459,15 +460,13 @@
 }
 
 @media (max-width: 1200px) {
-  .login-info {
-    width: 95%;
-    justify-content: center !important;
-    padding: 8px 10px !important;
-    margin: auto;
+
+  .login-container {
+    width: 100%;
   }
 
-  .login-info:hover {
-    transform: scale(1.03);;
+  .login-info {
+    justify-content: center;
   }
 
   .login-image {
@@ -480,11 +479,12 @@
   }
 
   .logout-button {
-    width: 95%;
-    margin: auto;
-    margin-top: 12px;
-    justify-content: center !important;
-    padding: 17px 10px !important;
+    opacity: 1;
+    position: relative;
+  }
+
+  .login-container:hover .logout-button{
+    top: 0;
   }
 }
 

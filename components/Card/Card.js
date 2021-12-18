@@ -26,7 +26,7 @@ export default function Card({ name, personal, birth, badge, avatarUrl, card, re
 
           <main>
             <div className={styles.badge}>
-              <div>
+              <div style={{ height: '100%', position: 'relative' }}>
                 <Image 
                   src={`/images/badges/${badge}.png`} 
                   layout="fill" 
@@ -37,7 +37,7 @@ export default function Card({ name, personal, birth, badge, avatarUrl, card, re
             </div>
 
             <div className={styles.avatar}>
-              <div>
+              <div style={{ height: '100%', position: 'relative' }}>
                 <Image src={avatarUrl} layout="fill" objectFit="cover" alt={name} />
               </div>
             </div>
@@ -66,7 +66,7 @@ export default function Card({ name, personal, birth, badge, avatarUrl, card, re
             <h4>{new Date(register).toLocaleDateString('en-GB')}</h4>
 
             <div className={styles.barcode}>
-              <div>
+              <div style={{ height: '100%', position: 'relative' }}>
                 <Image src={barcode} layout="fill" alt="Barcode"/>
               </div>
             </div>
