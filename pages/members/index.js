@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import MemberList from '../../components/MemberList/MemberList'
 
 export default function Members({ members }) {
@@ -6,9 +7,12 @@ export default function Members({ members }) {
 }
 
 export async function getServerSideProps() {
+
+  const databasePath = path.resolve(process.cwd(), "database");
+
   const data = fs
-    .readdirSync('./pages/api/database')
-    .map((member) => (member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8'))))
+    .readdirSync(databasePath)
+    .map((member) => (member = JSON.parse(fs.readFileSync(`${databasePath}/${member}`, 'utf8'))))
 
   return {
     props: {

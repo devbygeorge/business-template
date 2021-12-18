@@ -1,15 +1,17 @@
 import { PDFDocument, degrees } from "pdf-lib";
 import isCorrupted from 'is-corrupted-jpeg';
 import fs from "fs";
+import path from 'path'
+const publicPath = path.resolve(process.cwd(), "public");
 
 // --Generate Documents--
 export default async function CreateDocument() {
   try {
 
     // First empty documents folder
-    fs.readdirSync("./public/generation/documents")
+    fs.readdirSync(`${publicPath}/generation/documents`)
     .forEach(document => {
-      fs.unlink(`./public/generation/documents/${document}`, error => { if (error) throw error })
+      fs.unlink(`${publicPath}/generation/documents/${document}`, error => { if (error) throw error })
     }); 
 
     let leftCards = leftCardNums();
@@ -42,7 +44,7 @@ export default async function CreateDocument() {
       }, jpgImageBytes, jpgImage;
 
       // // Set template into document
-      jpgImageBytes = fs.readFileSync('./public/generation/template.jpg');
+      jpgImageBytes = fs.readFileSync(`${publicPath}/generation/template.jpg`);
       jpgImage = await document.embedJpg(jpgImageBytes);
       page.drawImage(jpgImage, {
           x: 0,
@@ -56,8 +58,8 @@ export default async function CreateDocument() {
       let positionY = page.getHeight() - parameters.positions.offsetY;
 
       for (let i = 0; i < 5; i++) {
-        const frontPath = `./public/generation/images/${leftCards[i]}-front.jpg`;
-        const backPath = `./public/generation/images/${leftCards[i]}-back.jpg`;
+        const frontPath = `${publicPath}/generation/images/${leftCards[i]}-front.jpg`;
+        const backPath = `${publicPath}/generation/images/${leftCards[i]}-back.jpg`;
         const bothImageExists = fs.existsSync(frontPath) && fs.existsSync(backPath);
 
         if (bothImageExists) {
@@ -94,7 +96,7 @@ export default async function CreateDocument() {
 
       // Save document into directory
       const documentBytes = await document.save();
-      fs.writeFileSync(`./public/generation/documents/${correctDocumentName}.pdf`, documentBytes, (err) => console.log(err))
+      fs.writeFileSync(`${publicPath}/generation/documents/${correctDocumentName}.pdf`, documentBytes, (err) => console.log(err))
       console.log(`Document ${correctDocumentName} Created`)
       leftCards = leftCardNums()
     }
@@ -105,14 +107,14 @@ export default async function CreateDocument() {
 
 function leftCardNums() {
 
-  const cardNames = fs.readdirSync("./public/generation/images")
-  .filter(card => !isCorrupted(`./public/generation/images/${card}`))
+  const cardNames = fs.readdirSync(`${publicPath}/generation/images`)
+  .filter(card => !isCorrupted(`${publicPath}/generation/images/${card}`))
   .map(card => card.replace('-front.jpg','').replace('-back.jpg',''))
 
   let mergedCardNames = [];
   for(let cardName of cardNames){
-    const frontPath = `./public/generation/images/${cardName}-front.jpg`;
-    const backPath = `./public/generation/images/${cardName}-back.jpg`;
+    const frontPath = `${publicPath}/generation/images/${cardName}-front.jpg`;
+    const backPath = `${publicPath}/generation/images/${cardName}-back.jpg`;
     const existImages = fs.existsSync(frontPath) && fs.existsSync(backPath);
     
     if(existImages && !mergedCardNames.includes(cardName)){
@@ -120,7 +122,7 @@ function leftCardNums() {
     }
   }
 
-  const documents = fs.readdirSync("./public/generation/documents")
+  const documents = fs.readdirSync(`${publicPath}/generation/documents`)
   let usedCards = []
 
   for(let document of documents){

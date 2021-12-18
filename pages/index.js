@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 import Hero from '../components/Hero/Hero'
 import About from '../components/About/About'
@@ -27,9 +28,11 @@ export default function Home({ members }) {
 
 export async function getServerSideProps() {
 
+  const databasePath = path.resolve(process.cwd(), "database");
+
 	const data = fs
-		.readdirSync('./pages/api/database')
-		.map((member) => (member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8'))))
+		.readdirSync(databasePath)
+		.map((member) => (member = JSON.parse(fs.readFileSync(`${databasePath}/${member}`, 'utf8'))))
 		.sort((a, b) => b.card - a.card)
 		.slice(0, 6);
 

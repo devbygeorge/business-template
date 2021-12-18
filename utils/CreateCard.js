@@ -1,5 +1,8 @@
 import nodeHtmlToImage from "node-html-to-image";
 import * as fs from "fs";
+import path from 'path'
+const databasePath = path.resolve(process.cwd(), "database");
+const publicPath = path.resolve(process.cwd(), "public");
 
 import { frontTemplate, backTemplate } from './Templates'
 import BarcodeGenerator from './BarcodeGenerator';
@@ -9,11 +12,11 @@ export default async function CreateCard (data){
   console.log('creating stage')
 
   const barcode = await BarcodeGenerator(`https://yourcompany.com/members/${data.personal}`);
-  const avatar = imageEncoder('./public' + data.avatar)
-  const badgeImage = imageEncoder('./public/images/badges/' + data.badge + '.png')
+  const avatar = imageEncoder(publicPath + data.avatar)
+  const badgeImage = imageEncoder(`${publicPath}/images/badges/` + data.badge + '.png')
 
   await nodeHtmlToImage({
-    output: `./public/generation/images/${data.card}-front.jpg`,
+    output: `${publicPath}/generation/images/${data.card}-front.jpg`,
     html: frontTemplate(),
     content: {
       name: data.name,
@@ -24,7 +27,7 @@ export default async function CreateCard (data){
   }).catch((err) => console.log(err));
 
   await nodeHtmlToImage({
-    output: `./public/generation/images/${data.card}-back.jpg`,
+    output: `${publicPath}/generation/images/${data.card}-back.jpg`,
     html: backTemplate(),
     content: {
       card: data.card,
@@ -44,13 +47,13 @@ export default async function CreateCard (data){
 
 const GenerateCards = async () => {
   console.log('happening')
-  const members = fs.readdirSync("./pages/api/database")
-    .map(member => JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8')))
+  const members = fs.readdirSync(databasePath)
+    .map(member => JSON.parse(fs.readFileSync(`${databasePath}/${member}`, 'utf8')))
     .sort((a, b) => a.card - b.card)
 
   for(let member of members){
-    const frontPath = `./generate/card-imgs/${member.card}-front.jpg`;
-    const backPath = `./generate/card-imgs/${member.card}-back.jpg`;
+    const frontPath = `${publicPath}/generation/images/${member.card}-front.jpg`;
+    const backPath = `${publicPath}/generation/images/${member.card}-back.jpg`;
 
     if (!fs.existsSync(frontPath) || !fs.existsSync(backPath)) {
       console.log(`Started Creating Card ${member.card}`)
@@ -59,8 +62,8 @@ const GenerateCards = async () => {
   }
 }
 
-function imageEncoder(path) {
-  let image = fs.readFileSync(path);
+function imageEncoder(imagePath) {
+  let image = fs.readFileSync(imagePath);
   const base64Image = new Buffer.from(image).toString('base64');
   const dataURI = 'data:image/jpeg;base64,' + base64Image
   return dataURI

@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import { useState } from 'react'
 import Form from '../components/Form/Form'
 import Card from '../components/Card/Card'
@@ -57,9 +58,11 @@ export default function Creation({ newCard }) {
 
 export async function getServerSideProps() {
 
+  const databasePath = path.resolve(process.cwd(), "database");
+
   const data = fs
-    .readdirSync('./pages/api/database')
-    .map((member) => (member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8')).card))
+    .readdirSync(databasePath)
+    .map((member) => (member = JSON.parse(fs.readFileSync(`${databasePath}/${member}`, 'utf8')).card))
     .sort((a, b) => b - a)
   const newCard = parseInt(data[0]) + 1
 

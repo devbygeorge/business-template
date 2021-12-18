@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import fs from 'fs'
+import path from 'path'
 import { useState } from 'react'
 
 import styles from '../components/Form/Form.module.css'
@@ -43,7 +44,9 @@ export default function Download({ data }) {
 
   export async function getServerSideProps() {
 
-    const data = fs.readdirSync('./public/generation/documents');
+    const documentsPath = path.resolve(process.cwd(), "public/generation/documents");
+
+    const data = fs.readdirSync(documentsPath);
 
     return {
       props: {

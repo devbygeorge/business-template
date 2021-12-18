@@ -1,18 +1,9 @@
 import fs from 'fs'
+import path from 'path'
 import MemberInfo from '../../components/MemberInfo/MemberInfo'
 import Card from '../../components/Card/Card'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-
 export default function Member({ member }) {
-  const router = useRouter()
-
-  useEffect(() => {
-    if(!member){
-      router.push('/creation')
-    }
-  }, [])
 
   if(!member){
     return (
@@ -49,10 +40,12 @@ export default function Member({ member }) {
 
 export async function getServerSideProps(context) {
 
-  const { memberId } = context.params;
-  const path = `./pages/api/database/${memberId}.json`;
+  const databasePath = path.resolve(process.cwd(), "database");
 
-  if(!fs.existsSync(path)){
+  const { memberId } = context.params;
+  const memberPath = `${databasePath}/${memberId}.json`;
+
+  if(!fs.existsSync(memberPath)){
     return {
       props: {
         member: null
@@ -60,7 +53,7 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const data = JSON.parse(fs.readFileSync(`./pages/api/database/${memberId}.json`, 'utf8'))
+  const data = JSON.parse(fs.readFileSync(memberPath, 'utf8'))
 
   return {
     props: {

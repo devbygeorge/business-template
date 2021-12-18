@@ -1,9 +1,11 @@
 import fs from "fs";
+import path from 'path'
+const publicPath = path.resolve(process.cwd(), "public");
 
-const fontSquareBanner = fs.readFileSync("./public/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.ttf");
+const fontSquareBanner = fs.readFileSync(`${publicPath}/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.ttf`);
 const base64SquareBanner = new Buffer.from(fontSquareBanner).toString('base64');
 
-const fontSquareBanner2013 = fs.readFileSync("./public/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.ttf");
+const fontSquareBanner2013 = fs.readFileSync(`${publicPath}/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.ttf`);
 const base64SquareBanner2013 = new Buffer.from(fontSquareBanner2013).toString('base64');
 
 const styles = `
