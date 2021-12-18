@@ -20,16 +20,16 @@ export default async function handler(req, res) {
     data.userId = session.userId;
     data.card = getNewCard()
 
-    const database = fs.readdirSync('./database');
+    const database = fs.readdirSync('./pages/api/database');
     database.map((member) => { 
-      member = JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8'))
+      member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8'))
       if(member.userId === data.userId) {
-        fs.unlink(`./database/${member.personal}.json`, (err) => console.log(err))
+        fs.unlink(`./pages/api/database/${member.personal}.json`, (err) => console.log(err))
         data.card = member.card
       }
     })
 
-    const personalUsed = fs.existsSync(`./database/${data.personal}.json`);
+    const personalUsed = fs.existsSync(`./pages/api/database/${data.personal}.json`);
     if(personalUsed) {
       res.status(401).json({ error: 'Unauthenticated user' })
     } else {
@@ -47,7 +47,7 @@ async function saveOnServer(data, image){
 
   data.avatar = `/images/members/${data.personal}.jpg`;
 
-  fs.writeFileSync(`./database/${data.personal}.json`, JSON.stringify(data), err => { if(err) console.log(err) })
+  fs.writeFileSync(`./pages/api/database/${data.personal}.json`, JSON.stringify(data), err => { if(err) console.log(err) })
 
   // Create card image
   CreateCard(data)
@@ -55,8 +55,8 @@ async function saveOnServer(data, image){
 
 function getNewCard() {
   const data = fs
-  .readdirSync('./database')
-  .map((member) => (member = JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8')).card))
+  .readdirSync('./pages/api/database')
+  .map((member) => (member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8')).card))
   .sort((a, b) => b - a);
 
   const newCard = parseInt(data[0]) + 1;

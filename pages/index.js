@@ -28,8 +28,8 @@ export default function Home({ members }) {
 export async function getServerSideProps() {
 
 	const data = fs
-		.readdirSync('./database')
-		.map((member) => (member = JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8'))))
+		.readdirSync('./pages/api/database')
+		.map((member) => (member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8'))))
 		.sort((a, b) => b.card - a.card)
 		.slice(0, 6);
 

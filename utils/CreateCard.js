@@ -44,8 +44,8 @@ export default async function CreateCard (data){
 
 const GenerateCards = async () => {
   console.log('happening')
-  const members = fs.readdirSync("./database")
-    .map(member => JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8')))
+  const members = fs.readdirSync("./pages/api/database")
+    .map(member => JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8')))
     .sort((a, b) => a.card - b.card)
 
   for(let member of members){

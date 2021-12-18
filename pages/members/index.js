@@ -7,8 +7,8 @@ export default function Members({ members }) {
 
 export async function getServerSideProps() {
   const data = fs
-    .readdirSync('./database')
-    .map((member) => (member = JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8'))))
+    .readdirSync('./pages/api/database')
+    .map((member) => (member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8'))))
 
   return {
     props: {

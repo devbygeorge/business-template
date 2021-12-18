@@ -58,8 +58,8 @@ export default function Creation({ newCard }) {
 export async function getServerSideProps() {
 
   const data = fs
-    .readdirSync('./database')
-    .map((member) => (member = JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8')).card))
+    .readdirSync('./pages/api/database')
+    .map((member) => (member = JSON.parse(fs.readFileSync(`./pages/api/database/${member}`, 'utf8')).card))
     .sort((a, b) => b - a)
   const newCard = parseInt(data[0]) + 1
 

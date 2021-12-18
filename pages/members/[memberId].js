@@ -50,7 +50,7 @@ export default function Member({ member }) {
 export async function getServerSideProps(context) {
 
   const { memberId } = context.params;
-  const path = `./database/${memberId}.json`;
+  const path = `./pages/api/database/${memberId}.json`;
 
   if(!fs.existsSync(path)){
     return {
@@ -60,7 +60,7 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const data = JSON.parse(fs.readFileSync(`./database/${memberId}.json`, 'utf8'))
+  const data = JSON.parse(fs.readFileSync(`./pages/api/database/${memberId}.json`, 'utf8'))
 
   return {
     props: {
