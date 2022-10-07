@@ -1,13 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 
-import Hero from '../components/Hero/Hero'
-import About from '../components/About/About'
-import Partners from '../components/Partners/Partners'
-import Members from '../components/MemberSlider/MemberSlider'
-import Principles from '../components/Principles/Principles'
-import Team from '../components/Team/Team'
-import Questions from '../components/Questions/Questions'
+import Hero from '@/components/Hero/Hero'
+import About from '@/components/About/About'
+import Partners from '@/components/Partners/Partners'
+import Members from '@/components/MemberSlider/MemberSlider'
+import Principles from '@/components/Principles/Principles'
+import Team from '@/components/Team/Team'
+import Questions from '@/components/Questions/Questions'
 
 export default function Home({ members }) {
 

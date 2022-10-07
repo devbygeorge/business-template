@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import MemberInfo from '../../components/MemberInfo/MemberInfo'
-import Card from '../../components/Card/Card'
+import MemberInfo from '@/components/MemberInfo/MemberInfo'
+import Card from '@/components/Card/Card'
 
 export default function Member({ member }) {
 

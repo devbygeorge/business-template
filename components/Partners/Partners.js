@@ -2,12 +2,12 @@ import Image from 'next/image'
 import styles from './Partners.module.css'
 
 // Partner Logos
-import company1 from '../../public/images/partners/company-1.png'
-import company2 from '../../public/images/partners/company-2.png'
-import company3 from '../../public/images/partners/company-3.png'
-import company4 from '../../public/images/partners/company-4.png'
-import company5 from '../../public/images/partners/company-5.png'
-import company6 from '../../public/images/partners/company-6.png'
+import company1 from '@/public/images/partners/company-1.png'
+import company2 from '@/public/images/partners/company-2.png'
+import company3 from '@/public/images/partners/company-3.png'
+import company4 from '@/public/images/partners/company-4.png'
+import company5 from '@/public/images/partners/company-5.png'
+import company6 from '@/public/images/partners/company-6.png'
 
 export default function Partners() {
   return (

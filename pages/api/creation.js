@@ -3,7 +3,7 @@ import multer from 'multer'
 import sharp from 'sharp'
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
-import CreateCard from '../../utils/CreateCard'
+import CreateCard from '@/utils/CreateCard'
 import { getSession } from 'next-auth/react'
 
 export default async function handler(req, res) {

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import MemberList from '../../components/MemberList/MemberList'
+import MemberList from '@/components/MemberList/MemberList'
 
 export default function Members({ members }) {
   return <MemberList members={members} />

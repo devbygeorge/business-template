@@ -1,16 +1,16 @@
 // Nessesary CSS
-import '../public/vendor/aos/aos.css'
-import '../public/vendor/bootstrap/css/bootstrap.min.css'
-import '../public/vendor/bootstrap-icons/bootstrap-icons.css'
-import '../public/vendor/boxicons/css/boxicons.min.css'
-import '../public/vendor/glightbox/css/glightbox.min.css'
+import '@/public/vendor/aos/aos.css'
+import '@/public/vendor/bootstrap/css/bootstrap.min.css'
+import '@/public/vendor/bootstrap-icons/bootstrap-icons.css'
+import '@/public/vendor/boxicons/css/boxicons.min.css'
+import '@/public/vendor/glightbox/css/glightbox.min.css'
 
 import Head from 'next/head'
 import Script from 'next/script'
-import Header from '../components/Layout/Header'
-import Footer from '../components/Layout/Footer'
-import '../styles/globals.css'
-import '../styles/layout.css'
+import Header from '@/components/Layout/Header'
+import Footer from '@/components/Layout/Footer'
+import '@/styles/globals.css'
+import '@/styles/layout.css'
 
 import React, { useRef, useEffect } from 'react';
 import { SessionProvider } from "next-auth/react"
