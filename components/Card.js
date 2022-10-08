@@ -1,8 +1,8 @@
 import Image from "next/image";
-import styles from "./Card.module.css";
+import styles from "@/styles/Card.module.css";
 
 import { useEffect, useState } from "react";
-import barcodeGenerator from "../../utils/BarcodeGenerator";
+import barcodeGenerator from "../utils/BarcodeGenerator";
 
 export default function Card({
   name,

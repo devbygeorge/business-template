@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import styles from "./LoginForm.module.css";
+import styles from "@/styles/Login.module.css";
 
-export default function LoginForm() {
+export default function Login() {
   const { data: session, status } = useSession();
 
   if (status === "authenticated") {

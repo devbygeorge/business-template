@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { useState } from "react";
 
-import styles from "@/components/Form/Form.module.css";
+import styles from "@/styles/Form.module.css";
 
 export default function Download({ data }) {
   const [documents, setDocuments] = useState(data);

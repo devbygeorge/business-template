@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { useState } from "react";
-import Form from "@/components/Form/Form";
-import Card from "@/components/Card/Card";
+import Form from "@/components/Form";
+import Card from "@/components/Card";
 
 export default function Creation({ newCard }) {
   const [name, setName] = useState("name surname");

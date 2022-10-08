@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import MemberInfo from "@/components/MemberInfo/MemberInfo";
-import Card from "@/components/Card/Card";
+import MemberInfo from "@/components/Profile";
+import Card from "@/components/Card";
 
 export default function Member({ member }) {
   if (!member) {
@@ -38,8 +38,8 @@ export default function Member({ member }) {
 export async function getServerSideProps(context) {
   const databasePath = path.resolve(process.cwd(), "database");
 
-  const { memberId } = context.params;
-  const memberPath = `${databasePath}/${memberId}.json`;
+  const { slug } = context.params;
+  const memberPath = `${databasePath}/${slug}.json`;
 
   if (!fs.existsSync(memberPath)) {
     return {

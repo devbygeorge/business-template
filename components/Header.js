@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import LoginForm from "@/components/LoginForm/LoginForm";
+import LoginForm from "@/components/Login";
 
-import styles from "./Header.module.css";
+import styles from "@/styles/Header.module.css";
 
 export default function Header() {
   return (

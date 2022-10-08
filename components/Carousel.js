@@ -5,9 +5,9 @@ import "swiper/css/bundle";
 import Image from "next/image";
 import Link from "next/link";
 
-import styles from "./MemberSlider.module.css";
+import styles from "@/styles/Carousel.module.css";
 
-export default function MemberSlider({ members }) {
+export default function Carousel({ members }) {
   useEffect(() => {
     new Swiper("#members-slider", {
       speed: 1000,

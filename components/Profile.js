@@ -1,7 +1,7 @@
 import Image from "next/image";
-import styles from "./MemberInfo.module.css";
+import styles from "@/styles/Profile.module.css";
 
-export default function MemberInfo({ member }) {
+export default function Profile({ member }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.image}>

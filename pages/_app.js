@@ -1,9 +1,12 @@
+/* Next assets import */
 import Head from "next/head";
-import Header from "@/components/Header/Header";
+import { SessionProvider } from "next-auth/react";
 
+/* Global styles import */
 import "@/styles/globals.css";
 
-import { SessionProvider } from "next-auth/react";
+/* Components import */
+import Header from "@/components/Header";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

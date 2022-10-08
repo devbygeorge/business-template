@@ -1,12 +1,12 @@
 import fs from "fs";
 import path from "path";
 
-import Members from "@/components/MemberSlider/MemberSlider";
+import Carousel from "@/components/Carousel";
 
 export default function Home({ members }) {
   return (
     <main className="main">
-      <Members members={members} />
+      <Carousel members={members} />
     </main>
   );
 }
