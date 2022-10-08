@@ -1,11 +1,13 @@
 import fs from "fs";
 import path from "path";
 
+import Hero from "@/components/Hero";
 import Carousel from "@/components/Carousel";
 
 export default function Home({ members }) {
   return (
     <main className="main">
+      <Hero />
       <Carousel members={members} />
     </main>
   );
