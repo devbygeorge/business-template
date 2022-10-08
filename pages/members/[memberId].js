@@ -1,63 +1,59 @@
-import fs from 'fs'
-import path from 'path'
-import MemberInfo from '@/components/MemberInfo/MemberInfo'
-import Card from '@/components/Card/Card'
+import fs from "fs";
+import path from "path";
+import MemberInfo from "@/components/MemberInfo/MemberInfo";
+import Card from "@/components/Card/Card";
 
 export default function Member({ member }) {
-
-  if(!member){
+  if (!member) {
     return (
-      <>
-        <div className="container mt-5 mb-5" data-aos="fade-right">
+      <main className="main">
+        <div className="container mt-5 mb-5">
           <h1>Member is not found...</h1>
         </div>
-      </>
-    )
+      </main>
+    );
   }
 
   return (
-    <>
-      <div className="container" data-aos="fade-right">
-
+    <main className="main">
+      <div className="container">
         <MemberInfo member={member} />
 
         <hr />
 
-        <Card 
+        <Card
           name={member.name}
-          personal={member.personal} 
+          personal={member.personal}
           birth={member.birth}
           badge={member.badge}
           avatarUrl={member.avatar}
           card={member.card}
-          register={member.register} 
+          register={member.register}
         />
-
       </div>
-    </>
-  )
+    </main>
+  );
 }
 
 export async function getServerSideProps(context) {
-
   const databasePath = path.resolve(process.cwd(), "database");
 
   const { memberId } = context.params;
   const memberPath = `${databasePath}/${memberId}.json`;
 
-  if(!fs.existsSync(memberPath)){
+  if (!fs.existsSync(memberPath)) {
     return {
       props: {
-        member: null
-      }
-    }
+        member: null,
+      },
+    };
   }
 
-  const data = JSON.parse(fs.readFileSync(memberPath, 'utf8'))
+  const data = JSON.parse(fs.readFileSync(memberPath, "utf8"));
 
   return {
     props: {
       member: data,
-    }
-  }
+    },
+  };
 }

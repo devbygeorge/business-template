@@ -1,55 +1,30 @@
-// Nessesary CSS
-import '@/public/vendor/aos/aos.css'
-import '@/public/vendor/bootstrap/css/bootstrap.min.css'
-import '@/public/vendor/bootstrap-icons/bootstrap-icons.css'
-import '@/public/vendor/boxicons/css/boxicons.min.css'
-import '@/public/vendor/glightbox/css/glightbox.min.css'
+import Head from "next/head";
+import Header from "@/components/Header/Header";
 
-import Head from 'next/head'
-import Script from 'next/script'
-import Header from '@/components/Layout/Header'
-import Footer from '@/components/Layout/Footer'
-import '@/styles/globals.css'
-import '@/styles/layout.css'
+import "@/styles/globals.css";
 
-import React, { useRef, useEffect } from 'react';
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  
-  const preloader = useRef(null);
-  useEffect(() => {
-    preloader.current.id = ''
-  }, [])
-
   return (
     <>
-    <Head>
-      <title>Company Projects Template</title>
-      <link rel="icon" href="/images/logo.png" />
-    </Head>
-    
-    <SessionProvider session={session} >
-      <Header />
-      <Component {...pageProps} />
-    </SessionProvider>
+      <Head>
+        <title>Company Projects Template</title>
+        <link rel="icon" href="/images/logo.png" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous"
+        ></link>
+      </Head>
 
-    <div ref={preloader} id="preloader"></div>
-    <a href="#" className="back-to-top d-flex align-items-center justify-content-center">
-      <i className="bi bi-arrow-up-short"></i>
-    </a>
-
-    <Footer />
-    {/* Vendor JS Files */}
-    <Script src="/vendor/aos/aos.js" strategy="beforeInteractive"></Script>
-    <Script src="/vendor/bootstrap/js/bootstrap.bundle.min.js" strategy="beforeInteractive"></Script>
-    <Script src="/vendor/glightbox/js/glightbox.min.js" strategy="beforeInteractive"></Script>
-    <Script src="/vendor/isotope-layout/isotope.pkgd.min.js" strategy="beforeInteractive"></Script>
-    <Script src="/vendor/purecounter/purecounter.js" strategy="beforeInteractive"></Script>
-    <Script src="/main.js" strategy="beforeInteractive"></Script>
+      <SessionProvider session={session}>
+        <Header />
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
-  )
-  
+  );
 }
 
-export default MyApp
+export default MyApp;

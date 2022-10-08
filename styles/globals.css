@@ -1,11 +1,19 @@
+:root {
+  --dark-blue: #051a25;
+  --light-blue: #276a91;
+  --blue: #193e53;
+  --gray: #aaa;
+}
+
 @font-face {
-  font-family: 'BPG Arial';
-  src: url('/fonts/bpg-arial/bpg-arial-webfont.eot'); 
-  src: url('/fonts/bpg-arial/bpg-arial-webfont.eot?#iefix') format('embedded-opentype'), 
-       url('/fonts/bpg-arial/bpg-arial-webfont.woff2') format('woff2'), 
-       url('/fonts/bpg-arial/bpg-arial-webfont.woff') format('woff'), 
-       url('/fonts/bpg-arial/bpg-arial-webfont.ttf') format('truetype'), 
-       url('/fonts/bpg-arial/bpg-arial-webfont.svg#bpg_arialregular') format('svg'); 
+  font-family: "BPG Arial";
+  src: url("/fonts/bpg-arial/bpg-arial-webfont.eot");
+  src: url("/fonts/bpg-arial/bpg-arial-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("/fonts/bpg-arial/bpg-arial-webfont.woff2") format("woff2"),
+    url("/fonts/bpg-arial/bpg-arial-webfont.woff") format("woff"),
+    url("/fonts/bpg-arial/bpg-arial-webfont.ttf") format("truetype"),
+    url("/fonts/bpg-arial/bpg-arial-webfont.svg#bpg_arialregular") format("svg");
 }
 
 body {
@@ -32,6 +40,15 @@ h4,
 h5,
 h6 {
   font-family: "BPG Arial", sans-serif;
+}
+
+/*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -62,7 +79,6 @@ section {
   background-color: #f8fbfe;
 }
 
-
 /* FAQ Styles */
 a.collapsed .icon-show {
   display: inline-block !important;
@@ -71,7 +87,6 @@ a.collapsed .icon-show {
 a.collapsed .icon-close {
   display: none !important;
 }
-
 
 /* Documents Download Styles */
 .documents {
@@ -92,7 +107,7 @@ a.collapsed .icon-close {
 }
 
 .document-canvas i {
-  margin-left: .2rem;
+  margin-left: 0.2rem;
   font-size: 1.5rem;
 }
 
