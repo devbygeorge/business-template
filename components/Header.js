@@ -1,13 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-
 import LoginForm from "@/components/Login";
-
-import styles from "@/styles/Header.module.css";
 
 export default function Header() {
   return (
-    <header className={styles.header}>
+    <header className="header">
       <div className="container d-flex align-items-center justify-content-between">
         <Link href="/">
           <a className="logo">
@@ -19,7 +16,7 @@ export default function Header() {
             />
           </a>
         </Link>
-        <nav id="navbar" className={styles.navbar}>
+        <nav id="navbar" className="navbar">
           <ul>
             <li>
               <Link href="/">Home</Link>
@@ -36,7 +33,11 @@ export default function Header() {
               </a>
             </li>
           </ul>
-          <i className="bi bi-list mobile-nav-toggle"></i>
+          <img
+            className="mobile-nav-toggle"
+            src="/images/menu.svg"
+            alt="menu icon"
+          />
         </nav>
       </div>
     </header>

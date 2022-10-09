@@ -1,10 +1,3 @@
-:root {
-  --dark-blue: #051a25;
-  --light-blue: #276a91;
-  --blue: #193e53;
-  --gray: #aaa;
-}
-
 @font-face {
   font-family: "BPG Arial";
   src: url("/fonts/bpg-arial/bpg-arial-webfont.eot");
@@ -14,6 +7,13 @@
     url("/fonts/bpg-arial/bpg-arial-webfont.woff") format("woff"),
     url("/fonts/bpg-arial/bpg-arial-webfont.ttf") format("truetype"),
     url("/fonts/bpg-arial/bpg-arial-webfont.svg#bpg_arialregular") format("svg");
+}
+
+:root {
+  --dark-blue: #051a25;
+  --light-blue: #276a91;
+  --blue: #193e53;
+  --gray: #aaa;
 }
 
 body {
@@ -64,6 +64,7 @@ section {
   color: #919191;
   text-align: center;
 }
+
 .button {
   width: 100%;
   padding: 0.63rem;
@@ -73,27 +74,181 @@ section {
   transition: 0.3s ease-out;
 }
 
-/* Documents Download Styles */
+.button:hover {
+  background: var(--blue);
+}
+
+/*--------------------------------------------------------------
+  Preloader
+--------------------------------------------------------------*/
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #fff;
+}
+
+.preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+
+  border: 6px solid var(--light-blue);
+  border-top-color: #fff;
+  border-bottom-color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e6f2fb;
+  padding: 10px 0;
+  transition: all 0.5s;
+  margin-bottom: 1rem;
+}
+
+.header .logo {
+  display: flex;
+  cursor: pointer;
+  margin: 0;
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/**
+* Desktop Navigation 
+*/
+.navbar {
+  padding: 0;
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.navbar a,
+.navbar a:focus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--light-blue);
+  white-space: nowrap;
+  transition: 0.3s;
+  border: none;
+}
+
+.navbar a:hover,
+.navbar .active,
+.navbar .active:focus {
+  color: var(--dark-blue);
+}
+
+.navbar li > a {
+  margin-left: 30px;
+}
+
+/**
+  * Mobile Navigation 
+  */
+
+.mobile-nav-toggle {
+  width: 1.8rem;
+  color: var(--blue);
+  line-height: 0;
+  transition: 0.5s;
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 75em) {
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .navbar ul {
+    display: none;
+  }
+}
+
+.navbar-mobile {
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(10, 38, 58, 0.9);
+  transition: 0.3s;
+  z-index: 999;
+}
+
+.navbar-mobile .mobile-nav-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.navbar-mobile ul {
+  display: block;
+  position: absolute;
+  top: 55px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  padding: 10px 0;
+  background-color: #fff;
+  overflow-y: auto;
+  transition: 0.3s;
+}
+
+.navbar-mobile a {
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+/*--------------------------------------------------------------
+  Documents Download Styles
+--------------------------------------------------------------*/
 .documents {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  box-shadow: 0px 0.5rem 1.9rem rgba(100, 100, 111, 0.2);
 }
 
 .document-canvas {
-  margin: 1rem;
-  padding: 1rem 0.5rem;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  text-align: center;
   display: flex;
   justify-content: center;
-  cursor: pointer;
-}
 
-.document-canvas i {
-  margin-left: 0.2rem;
-  font-size: 1.5rem;
+  padding: 1rem 0.5rem;
+  margin: 1rem;
+
+  cursor: pointer;
+  transition: 0.3s ease-out;
+  text-align: center;
+  box-shadow: 0px 0.5rem 1.9rem rgba(100, 100, 111, 0.2);
 }
 
 .document-canvas:hover {

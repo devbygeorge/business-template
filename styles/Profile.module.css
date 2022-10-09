@@ -1,21 +1,21 @@
 /*--------------------------------------------------------------
-# Members Info
+# Member's Profile Info
 --------------------------------------------------------------*/
 .wrapper {
-  height: 150px;
   display: grid;
-  grid-template-columns: 1fr 9fr 1fr;
+  grid-template-columns: 1fr 9fr;
   justify-content: space-between;
   align-items: center;
+  height: 9.4rem;
 }
 
 .image {
-  width: 150px;
-  height: 150px;
+  width: 9.4rem;
+  height: 9.4rem;
   border-radius: 50%;
+  margin-right: 2rem;
   position: relative;
   overflow: hidden;
-  margin-right: 32px;
 }
 
 .info h2 {
@@ -25,31 +25,32 @@
 .info h3 {
   display: inline-block;
   font-size: 1rem;
-  padding: 5px 9px;
-  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
   background: var(--light-blue);
   color: #ffffff;
+
+  border-radius: 0.25rem;
   text-transform: capitalize;
 }
 
 /* Screens Lower than 768px */
 @media (max-width: 768px) {
   .wrapper {
-    height: 75px;
+    height: 4.7rem;
   }
 
   .image {
-    width: 75px;
-    height: 100%;
-    margin-right: 14px;
+    width: 4.7rem;
+    height: 4.7rem;
+    margin-right: 0.88rem;
   }
 
   .info h2 {
-    font-size: 18px;
-    margin-bottom: 6px;
+    font-size: 1.13rem;
+    margin-bottom: 0.38rem;
   }
 
   .info h3 {
-    font-size: 14px;
+    font-size: 0.88rem;
   }
 }

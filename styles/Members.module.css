@@ -2,15 +2,12 @@
 # Members List
 --------------------------------------------------------------*/
 .search {
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
   width: 100%;
-  font-size: 16px;
-  padding: 12px 20px;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  margin: 0.35rem 0 0.85rem;
   border: 1px solid #ddd;
   outline: none;
-  margin-bottom: 12px;
-  margin-top: 20px;
 }
 
 .list {
@@ -20,25 +17,27 @@
 }
 
 .list a {
-  margin-top: 10px;
-  background-color: #f6f6f6;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  color: black;
   display: flex;
   align-items: center;
+
+  padding: 0.75rem;
+  margin-top: 0.63rem;
+  background-color: #f6f6f6;
+
+  font-size: 1.13rem;
+  color: #000;
+  text-decoration: none;
 }
 
 .list a:hover {
-  color: #000;
   background-color: #eee;
+  color: #000;
 }
 
 .image {
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
   position: relative;
   overflow: hidden;
 }

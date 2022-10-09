@@ -1,24 +1,34 @@
 /*--------------------------------------------------------------
-# Members Cards
+# Card
 --------------------------------------------------------------*/
 @font-face {
-  font-family: 'BPG Square Banner 2013';
-  src: url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.eot');
-  src: url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.eot?#iefix') format('embedded-opentype'),
-      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.woff2') format('woff2'),
-      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.woff') format('woff'),
-      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.ttf') format('truetype'),
-      url('/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.svg') format('svg');
+  font-family: "BPG Square Banner 2013";
+  src: url("/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.eot");
+  src: url("/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.woff2")
+      format("woff2"),
+    url("/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.woff")
+      format("woff"),
+    url("/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.ttf")
+      format("truetype"),
+    url("/fonts/bpg-square-banner/bpg-square-banner-2013-webfont.svg")
+      format("svg");
 }
 
 @font-face {
-  font-family: 'BPG Square Banner Caps 2013';
-  src: url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.eot');
-  src: url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.eot?#iefix') format('embedded-opentype'),
-      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.woff2') format('woff2'),
-      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.woff') format('woff'),
-      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.ttf') format('truetype'),
-      url('/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.svg') format('svg');
+  font-family: "BPG Square Banner Caps 2013";
+  src: url("/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.eot");
+  src: url("/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.woff2")
+      format("woff2"),
+    url("/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.woff")
+      format("woff"),
+    url("/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.ttf")
+      format("truetype"),
+    url("/fonts/bpg-square-banner-caps/bpg-square-banner-caps-2013-webfont.svg")
+      format("svg");
 }
 
 .wrapper {
@@ -55,13 +65,11 @@
   border: 0;
   padding: 27.5px 25px 0 25px;
   margin-bottom: 5rem;
-
 }
 
 .card header h3 {
   font-size: 25px;
   margin-bottom: 1rem;
-
 }
 
 .card header span {
@@ -85,7 +93,7 @@
   margin: 14px 0 60px;
   letter-spacing: -1px;
 }
-  
+
 .badge {
   width: 90px;
   height: 90px;
@@ -131,7 +139,7 @@
   justify-content: center;
 
   font-size: 24px;
-  
+
   height: 92.5px;
   color: #fff;
   background: var(--blue);
@@ -141,13 +149,13 @@
 # Cards Responsiveness
 --------------------------------------------------------------*/
 
-@media(max-width: 995px){
+@media (max-width: 995px) {
   .wrapper {
     flex-direction: column;
   }
 }
 
-@media(max-width: 535px){
+@media (max-width: 535px) {
   .wrapper {
     transform: scale(0.9);
     transform-origin: center top;
@@ -155,21 +163,21 @@
   }
 }
 
-@media(max-width: 475px){
+@media (max-width: 475px) {
   .wrapper {
     transform: scale(0.8);
     margin-bottom: -275px;
   }
 }
 
-@media(max-width: 415px){
+@media (max-width: 415px) {
   .wrapper {
     transform: scale(0.7);
     margin-bottom: -455px;
   }
 }
 
-@media(max-width: 370px){
+@media (max-width: 370px) {
   .wrapper {
     transform: scale(0.6);
     margin-bottom: -615px;

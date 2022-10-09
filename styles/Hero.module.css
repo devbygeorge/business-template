@@ -2,10 +2,11 @@
 # Hero Component
 --------------------------------------------------------------*/
 .hero {
-  width: 100%;
-  position: relative;
-  background: url("/images/hero.jpg") top center;
+  background-image: url("/images/hero.jpg");
+  background-repeat: no-repeat;
+  background-position: top center;
   background-size: cover;
+
   position: relative;
   border-bottom: 1px solid #eee;
   margin-top: -1rem;
@@ -20,40 +21,42 @@
 
 .heading {
   font-family: "BPG Arial", sans-serif;
-  font-size: 56px;
+  font-size: 3.5rem;
   font-weight: 700;
-  line-height: 72px;
+  line-height: 4.5rem;
   color: var(--light-blue);
   margin: 0;
 }
 
 .subheading {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: var(--gray);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 64em) {
   .hero {
     background-attachment: fixed;
   }
 }
 
-@media (max-height: 800px) {
+@media (max-height: 55em) {
   .hero {
     height: auto;
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 62em) {
   .hero {
     height: auto;
   }
+
   .heading {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 1.75rem;
+    line-height: 2.25rem;
   }
+
   .subheading {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
   }
 }
