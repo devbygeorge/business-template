@@ -40,79 +40,81 @@
 }
 
 .card {
-  font-family: "BPG Square Banner Caps 2013", sans-serif;
-  width: 500.775px;
-  height: 802.5px;
-  border: 2px solid #ddd;
-  color: #161616;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  width: 31rem;
+  height: 50rem;
+  font-family: "BPG Square Banner Caps 2013", sans-serif;
+  color: #161616;
+
+  border: 2px solid #ddd;
   text-transform: uppercase;
   position: relative;
   overflow: hidden;
 }
 
 .card * {
-  font-family: inherit;
   margin: 0;
   padding: 0;
+  font-family: inherit;
   line-height: 1;
 }
 
 .card header {
-  background-color: transparent;
-  border: 0;
-  padding: 27.5px 25px 0 25px;
   margin-bottom: 5rem;
+  padding: 1.75rem 1.56rem 0 1.56rem;
+  border: 0;
+  background-color: transparent;
 }
 
 .card header h3 {
-  font-size: 25px;
+  font-size: 1.56rem;
   margin-bottom: 1rem;
 }
 
 .card header span {
-  font-size: 18px;
+  font-size: 1.13rem;
   color: var(--blue);
 }
 
 .card main {
-  padding: 0 25px;
+  padding: 0 1.56rem;
   flex: 1;
 }
 
 .card main span {
   font-family: "BPG Square Banner 2013", sans-serif;
-  font-size: 12.5px;
+  font-size: 0.81rem;
   opacity: 0.5;
 }
 
 .card main h4 {
-  font-size: 27.5px;
-  margin: 14px 0 60px;
+  font-size: 1.75rem;
+  margin: 0.88rem 0 3.75rem;
   letter-spacing: -1px;
 }
 
 .badge {
-  width: 90px;
-  height: 90px;
+  width: 5.63rem;
+  height: 5.63rem;
   border-radius: 50%;
   background: #fff;
   margin-top: -1.5rem;
   overflow: hidden;
 
   position: absolute;
-  left: 25px;
-  bottom: 112.5px;
+  left: 1.56rem;
+  bottom: 7rem;
 
   -webkit-filter: grayscale(40%);
   filter: grayscale(40%);
 }
 
 .avatar {
-  width: 160px;
-  height: 160px;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
 
   -webkit-filter: grayscale(100%);
@@ -120,13 +122,13 @@
   overflow: hidden;
 
   position: absolute;
-  right: 60px;
-  top: 435px;
+  right: 3.75rem;
+  top: 27.2rem;
 }
 
 .barcode {
-  width: 105px;
-  height: 105px;
+  width: 6.56rem;
+  height: 6.56rem;
 
   position: absolute;
   right: 50px;
@@ -138,9 +140,9 @@
   align-items: center;
   justify-content: center;
 
-  font-size: 24px;
+  font-size: 1.5rem;
 
-  height: 92.5px;
+  height: 5.8rem;
   color: #fff;
   background: var(--blue);
 }
@@ -149,37 +151,37 @@
 # Cards Responsiveness
 --------------------------------------------------------------*/
 
-@media (max-width: 995px) {
+@media (max-width: 62.2em) {
   .wrapper {
     flex-direction: column;
   }
 }
 
-@media (max-width: 535px) {
+@media (max-width: 33.4em) {
   .wrapper {
     transform: scale(0.9);
     transform-origin: center top;
-    margin-bottom: -150px;
+    margin-bottom: -9.38rem;
   }
 }
 
-@media (max-width: 475px) {
+@media (max-width: 29.7em) {
   .wrapper {
     transform: scale(0.8);
-    margin-bottom: -275px;
+    margin-bottom: -17.2rem;
   }
 }
 
-@media (max-width: 415px) {
+@media (max-width: 25.9em) {
   .wrapper {
     transform: scale(0.7);
-    margin-bottom: -455px;
+    margin-bottom: -28.5rem;
   }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 23.15em) {
   .wrapper {
     transform: scale(0.6);
-    margin-bottom: -615px;
+    margin-bottom: -38.5;
   }
 }
