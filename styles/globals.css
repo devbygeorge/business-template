@@ -20,7 +20,6 @@ body {
   font-family: "BPG Arial", sans-serif;
   color: var(--light-blue);
   overflow-x: hidden;
-  padding-top: 6.5rem;
 }
 
 a {
@@ -33,19 +32,10 @@ a:hover {
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "BPG Arial", sans-serif;
-}
-
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 48em) {
   [data-aos-delay] {
     transition-delay: 0 !important;
   }
@@ -60,32 +50,27 @@ section {
 }
 
 .heading {
+  margin-bottom: 1.5rem;
   font-size: 2rem;
   font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
   color: var(--light-blue);
+  text-transform: uppercase;
   text-align: center;
 }
 
 .paragraph {
   margin-bottom: 2rem;
-  font-size: 14px;
+  font-size: 0.88rem;
   color: #919191;
   text-align: center;
 }
-
-.back-color {
-  background-color: #f8fbfe;
-}
-
-/* FAQ Styles */
-a.collapsed .icon-show {
-  display: inline-block !important;
-}
-
-a.collapsed .icon-close {
-  display: none !important;
+.button {
+  width: 100%;
+  padding: 0.63rem;
+  background: var(--light-blue);
+  color: #fff;
+  border: none;
+  transition: 0.3s ease-out;
 }
 
 /* Documents Download Styles */
@@ -94,6 +79,7 @@ a.collapsed .icon-close {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  margin-top: 1rem;
 }
 
 .document-canvas {
