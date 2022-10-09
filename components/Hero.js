@@ -3,7 +3,7 @@ import styles from "@/styles/Hero.module.css";
 
 export default function Hero() {
   return (
-    <section id="hero" className={styles.hero}>
+    <section className={styles.hero}>
       <div className="container position-relative">
         <div className="row justify-content-center">
           <div className="col-xl-7 col-lg-9 text-center">
@@ -14,7 +14,9 @@ export default function Hero() {
               width={290}
               height={290}
             />
-            <h2 className={styles.subheading}>Slogan goes here</h2>
+            <h2 className={styles.subheading}>
+              Get a card and enjoy the privileges
+            </h2>
           </div>
         </div>
       </div>
