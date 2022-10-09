@@ -8,6 +8,7 @@
   background-size: cover;
   position: relative;
   border-bottom: 1px solid #eee;
+  margin-top: -1rem;
 }
 
 .hero:before {
