@@ -8,19 +8,19 @@ export default function Login() {
 
   if (status === "authenticated") {
     return (
-      <div className={styles.login_container}>
+      <div className={styles.container}>
         <Link href={`/creation`} passHref>
-          <div className="login-info">
+          <div className={styles.user}>
             <img
-              className="login-image"
+              className={styles.avatar}
               src={session.user.image}
-              alt="Profile Picture"
+              alt="Profile"
             />
-            <h4 className="login-name">{session.user.name}</h4>
+            <h4 className={styles.name}>{session.user.name}</h4>
           </div>
         </Link>
 
-        <button className="logout-button" onClick={() => signOut()}>
+        <button className={styles.logout} onClick={() => signOut()}>
           Log out
         </button>
       </div>
@@ -32,9 +32,9 @@ export default function Login() {
   }
 
   return (
-    <button className={styles.login_button} onClick={() => signIn("facebook")}>
-      <i className="bx bxl-facebook-square"></i>
-      Log in
+    <button className={styles.gitbutton} onClick={() => signIn("github")}>
+      Sign in with github
+      <img src="/images/github.png" alt="github" />
     </button>
   );
 }
