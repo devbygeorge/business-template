@@ -1,8 +1,15 @@
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LoginForm from "@/components/Login";
 
 export default function Header() {
+  const [isMobileMenuActive, setMobileMenuActive] = useState(false);
+
+  const handleMobileMenuButton = () => {
+    setMobileMenuActive(!isMobileMenuActive);
+  };
+
   return (
     <header className="header">
       <div className="container d-flex align-items-center justify-content-between">
@@ -16,7 +23,10 @@ export default function Header() {
             />
           </a>
         </Link>
-        <nav id="navbar" className="navbar">
+        <nav
+          id="navbar"
+          className={`navbar ${isMobileMenuActive ? "navbar-mobile" : ""}`}
+        >
           <ul>
             <li>
               <Link href="/">Home</Link>
@@ -35,6 +45,7 @@ export default function Header() {
           </ul>
           <img
             className="mobile-nav-toggle"
+            onClick={handleMobileMenuButton}
             src="/images/menu.svg"
             alt="menu icon"
           />
