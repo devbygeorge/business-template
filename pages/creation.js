@@ -1,10 +1,15 @@
 import fs from "fs";
 import path from "path";
+
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+
 import Form from "@/components/Form";
 import Card from "@/components/Card";
 
 export default function Creation({ newCard }) {
+  const { status } = useSession();
+
   const [name, setName] = useState("name surname");
   const [personal, setPersonal] = useState("00000000000");
   const [birth, setBirth] = useState(new Date());
@@ -14,36 +19,50 @@ export default function Creation({ newCard }) {
   const [card, setCard] = useState(newCard);
   const [register, setRegister] = useState(new Date());
 
+  if (status === "authenticated") {
+    return (
+      <main className="main">
+        <div className="container">
+          <Form
+            name={name}
+            setName={setName}
+            personal={personal}
+            setPersonal={setPersonal}
+            birth={birth}
+            setBirth={setBirth}
+            badge={badge}
+            setBadge={setBadge}
+            avatar={avatar}
+            setAvatar={setAvatar}
+            card={card}
+            setCard={setCard}
+            setAvatarUrl={setAvatarUrl}
+            register={register}
+            setRegister={setRegister}
+          />
+
+          <Card
+            name={name}
+            personal={personal}
+            birth={birth}
+            badge={badge}
+            avatarUrl={avatarUrl}
+            card={card}
+            register={register}
+          />
+        </div>
+      </main>
+    );
+  }
+
+  if (status === "loading") {
+    return <div className="preloader"></div>;
+  }
+
   return (
     <main className="main">
-      <div className="container">
-        <Form
-          name={name}
-          setName={setName}
-          personal={personal}
-          setPersonal={setPersonal}
-          birth={birth}
-          setBirth={setBirth}
-          badge={badge}
-          setBadge={setBadge}
-          avatar={avatar}
-          setAvatar={setAvatar}
-          card={card}
-          setCard={setCard}
-          setAvatarUrl={setAvatarUrl}
-          register={register}
-          setRegister={setRegister}
-        />
-
-        <Card
-          name={name}
-          personal={personal}
-          birth={birth}
-          badge={badge}
-          avatarUrl={avatarUrl}
-          card={card}
-          register={register}
-        />
+      <div className="container mt-5 mb-5">
+        <h1>Please authorize to use this feature...</h1>
       </div>
     </main>
   );
