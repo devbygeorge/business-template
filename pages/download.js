@@ -3,8 +3,6 @@ import fs from "fs";
 import path from "path";
 import { useState } from "react";
 
-import styles from "@/styles/Form.module.css";
-
 export default function Download({ data }) {
   const [documents, setDocuments] = useState(data);
 
@@ -18,7 +16,7 @@ export default function Download({ data }) {
     <main className="main">
       <div className="container">
         <div className="documents">
-          <button className={styles.button} onClick={generateHandler}>
+          <button className="button" onClick={generateHandler}>
             Generate Documents
           </button>
           <hr />
@@ -29,9 +27,6 @@ export default function Download({ data }) {
                 <a download target="_blank">
                   <article className="document-canvas">
                     <span>{document}</span>
-                    <span>
-                      <i className="bx bxs-cloud-download"></i>
-                    </span>
                   </article>
                 </a>
               </Link>
