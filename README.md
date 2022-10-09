@@ -1,3 +1,3 @@
-# Projects-Template-next.js-
+# Projects-Template
 
 [https://projectstemplate.vercel.app/](https://projectstemplate.vercel.app/)
