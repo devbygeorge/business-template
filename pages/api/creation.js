@@ -1,86 +1,100 @@
-import fs from 'fs'
-import multer from 'multer'
-import sharp from 'sharp'
-const storage = multer.memoryStorage()
-const upload = multer({ storage })
-import createCard from '@/utils/createCard'
-import { getSession } from 'next-auth/react'
+import sharp from "sharp";
+import multer from "multer";
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+// import createCard from "@/utils/createCard";
+import { getSession } from "next-auth/react";
+
+import connectMongo from "@/lib/connectMongo";
+import Member from "@/models/memberModel";
 
 export default async function handler(req, res) {
-  await runMiddleware(req, res, upload.single('avatar'))
-  
+  await runMiddleware(req, res, upload.single("avatar"));
+
   const data = req.body;
   const image = req.file;
+  const session = await getSession({ req });
 
-  const session = await getSession({ req })
-  
-  if(!session){
-    res.status(401).json({ error: 'Unauthenticated user' })
-  } else {
-    data.userId = session.userId;
-    data.card = getNewCard()
+  if (!session) {
+    return res.status(401).json({ error: "Unauthenticated user" });
+  }
 
-    const database = fs.readdirSync('./database');
-    database.map((member) => { 
-      member = JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8'))
-      if(member.userId === data.userId) {
-        fs.unlink(`./database/${member.personal}.json`, (err) => console.log(err))
-        data.card = member.card
-      }
-    })
+  try {
+    // Connect to db
+    await connectMongo();
 
-    const personalUsed = fs.existsSync(`./database/${data.personal}.json`);
-    if(personalUsed) {
-      res.status(401).json({ error: 'Unauthenticated user' })
-    } else {
-      saveOnServer(data, image)
-      res.status(200).json({ message: 'Success', session })
+    // Validate that personal number entered by member is unique
+    const currentMember = await Member.findOne({ userId: session.userId });
+    const personWithSameId = await Member.findOne({
+      personal: data.personal,
+    });
+
+    if (personWithSameId && personWithSameId.userId !== session.userId) {
+      return res.status(403).json({ error: "Personal number is in use!" });
     }
+
+    // Optimize and save avatar
+    await sharp(image.buffer)
+      .rotate()
+      .resize({ width: 1000 })
+      .toFile(`./public/images/members/${data.personal}.jpg`);
+
+    const userBody = {
+      ...data,
+      userId: session.userId,
+      avatar: `/images/members/${data.personal}.jpg`,
+    };
+
+    if (currentMember) {
+      // Member data exists in db, let's update
+      userBody.card = currentMember.card;
+      const updateMember = await Member.updateOne(
+        { userId: session.userId },
+        userBody
+      );
+      console.log("Member Updated!", updateMember);
+    } else {
+      // Member data doesn't exist in db, let's create new one
+      userBody.card = await getNextCard();
+      const createMember = await Member.create(userBody);
+      console.log("Member Created!", createMember);
+
+      // createCard(data);
+    }
+    res.status(200).json({ success: "User proceed successfully" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
-async function saveOnServer(data, image){
-  // Optimize image before save
-  await sharp(image.buffer).rotate()
-  .resize({width: 1000})
-  .toFile(`./public/images/members/${data.personal}.jpg`);
+async function getNextCard() {
+  let nextCard = "0001";
 
-  data.avatar = `/images/members/${data.personal}.jpg`;
+  const data = await Member.find();
+  const members = JSON.parse(JSON.stringify(data));
 
-  fs.writeFileSync(`./database/${data.personal}.json`, JSON.stringify(data), err => { if(err) console.log(err) })
-
-  // Create card image
-  createCard(data)
-}
-
-function getNewCard() {
-  const data = fs
-  .readdirSync('./database')
-  .map((member) => (member = JSON.parse(fs.readFileSync(`./database/${member}`, 'utf8')).card))
-  .sort((a, b) => b - a);
-
-  const newCard = parseInt(data[0]) + 1;
-
-  if(!newCard) {
-    return '0001';
+  if (members) {
+    const lastCard = members[members.length - 1].card;
+    nextCard = JSON.stringify(parseInt(lastCard) + 1).padStart(4, "0");
   }
 
-  return JSON.stringify(newCard).padStart(4, '0');
+  return nextCard;
 }
 
 function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
       if (result instanceof Error) {
-        return reject(result)
+        return reject(result);
       }
-      return resolve(result)
-    })
-  })
+      return resolve(result);
+    });
+  });
 }
 
 export const config = {
   api: {
     bodyParser: false,
   },
-}
+};
