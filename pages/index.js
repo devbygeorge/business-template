@@ -4,10 +4,8 @@ import path from "path";
 import Hero from "@/components/Hero";
 import Carousel from "@/components/Carousel";
 
-import clientPromise from "../lib/mongodb";
-
 export default function Home({ members, isConnected }) {
-  console.log('Is mongodb conneted', isConnected)
+  console.log("Is mongodb conneted", isConnected);
   return (
     <main className="main">
       <Hero />
@@ -30,16 +28,20 @@ export async function getServerSideProps() {
     .sort((a, b) => b.card - a.card)
     .slice(0, 6);
 
-  try {
-    const client = await clientPromise;
-    const db = client.db("sample_mflix");
+  const connectMongo = require("@/lib/connectMongo").default;
+  const Member = require("@/models/memberModel").default;
 
-    const commentsData = await db
-      .collection("comments")
-      .find({})
-      .limit(20)
-      .toArray();
-    const comments = JSON.parse(JSON.stringify(commentsData));
+  try {
+    await connectMongo();
+    console.log("connected to mongoose");
+
+    // const createMember = await Member.create({
+    //   name: "Nikoloz",
+    //   email: "gamogabo@gmail.com",
+    // });
+
+    const members = await Member.find();
+    console.log(members);
 
     return {
       props: { isConnected: true, members: data },
