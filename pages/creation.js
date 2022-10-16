@@ -1,13 +1,10 @@
-import fs from "fs";
-import path from "path";
-
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 
 import Form from "@/components/Form";
 import Card from "@/components/Card";
 
-export default function Creation({ newCard }) {
+export default function Creation({ nextCard }) {
   const { status } = useSession();
 
   const [name, setName] = useState("name surname");
@@ -16,7 +13,7 @@ export default function Creation({ newCard }) {
   const [badge, setBadge] = useState("first");
   const [avatar, setAvatar] = useState("/images/avatar.png");
   const [avatarUrl, setAvatarUrl] = useState("/images/avatar.png");
-  const [card, setCard] = useState(newCard);
+  const [card, setCard] = useState(nextCard);
   const [register, setRegister] = useState(new Date());
 
   if (status === "authenticated") {
@@ -69,30 +66,27 @@ export default function Creation({ newCard }) {
 }
 
 export async function getServerSideProps() {
-  const databasePath = path.resolve(process.cwd(), "database");
+  const connectMongo = require("@/lib/connectMongo").default;
+  const Member = require("@/models/memberModel").default;
+  let nextCard = "0001";
 
-  const data = fs
-    .readdirSync(databasePath)
-    .map(
-      (member) =>
-        (member = JSON.parse(
-          fs.readFileSync(`${databasePath}/${member}`, "utf8")
-        ).card)
-    )
-    .sort((a, b) => b - a);
-  const newCard = parseInt(data[0]) + 1;
+  try {
+    await connectMongo();
 
-  if (!newCard) {
-    return {
-      props: {
-        newCard: "0001",
-      },
-    };
+    const data = await Member.find();
+    const members = JSON.parse(JSON.stringify(data));
+
+    if (members) {
+      const lastCard = members[members.length - 1].card;
+      nextCard = JSON.stringify(parseInt(lastCard) + 1).padStart(4, "0");
+    }
+  } catch (e) {
+    console.error(e);
   }
 
   return {
     props: {
-      newCard: JSON.stringify(newCard).padStart(4, "0"),
+      nextCard: nextCard,
     },
   };
 }

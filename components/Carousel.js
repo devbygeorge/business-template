@@ -35,27 +35,28 @@ export default function Carousel({ members }) {
             },
           }}
         >
-          {members.map((member) => {
-            return (
-              <SwiperSlide key={member.card}>
-                <Link href={`/members/${member.personal}`}>
-                  <a>
-                    <div className={styles.avatar}>
-                      <Image
-                        src={member.avatar}
-                        layout="fill"
-                        loading="eager"
-                        objectFit="cover"
-                        alt={member.name}
-                      />
-                    </div>
-                    <h3 className={styles.name}>{member.name}</h3>
-                    <h4 className={styles.badge}>{member.badge} place</h4>
-                  </a>
-                </Link>
-              </SwiperSlide>
-            );
-          })}
+          {members &&
+            members.map((member) => {
+              return (
+                <SwiperSlide key={member.card}>
+                  <Link href={`/members/${member.personal}`}>
+                    <a>
+                      <div className={styles.avatar}>
+                        <Image
+                          src={member.avatar}
+                          layout="fill"
+                          loading="eager"
+                          objectFit="cover"
+                          alt={member.name}
+                        />
+                      </div>
+                      <h3 className={styles.name}>{member.name}</h3>
+                      <h4 className={styles.badge}>{member.badge} place</h4>
+                    </a>
+                  </Link>
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
 
         <Link href="/members">

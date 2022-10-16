@@ -1,6 +1,3 @@
-import fs from "fs";
-import path from "path";
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -14,7 +11,7 @@ export default function Members({ members }) {
         <input className={styles.search} type="text" placeholder="Search...." />
         <p>Members Quantity - {members.length}</p>
         <ul className={styles.list}>
-          {members.map((member) => {
+          {members && members.map((member) => {
             return (
               <li key={member.card}>
                 <Link href={`/members/${member.personal}`}>
@@ -40,20 +37,20 @@ export default function Members({ members }) {
 }
 
 export async function getServerSideProps() {
-  const databasePath = path.resolve(process.cwd(), "database");
+  const connectMongo = require("@/lib/connectMongo").default;
+  const Member = require("@/models/memberModel").default;
+  let members = [];
 
-  const data = fs
-    .readdirSync(databasePath)
-    .map(
-      (member) =>
-        (member = JSON.parse(
-          fs.readFileSync(`${databasePath}/${member}`, "utf8")
-        ))
-    );
+  try {
+    await connectMongo();
+
+    const data = await Member.find();
+    members = JSON.parse(JSON.stringify(data));
+  } catch (e) {
+    console.error(e);
+  }
 
   return {
-    props: {
-      members: data,
-    },
+    props: { members },
   };
 }

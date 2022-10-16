@@ -1,11 +1,9 @@
-import fs from "fs";
-import path from "path";
-
 import Hero from "@/components/Hero";
 import Carousel from "@/components/Carousel";
 
 export default function Home({ members, isConnected }) {
-  console.log("Is mongodb conneted", isConnected);
+  console.log("mongodb connected", isConnected);
+
   return (
     <main className="main">
       <Hero />
@@ -15,41 +13,32 @@ export default function Home({ members, isConnected }) {
 }
 
 export async function getServerSideProps() {
-  const databasePath = path.resolve(process.cwd(), "database");
-
-  const data = fs
-    .readdirSync(databasePath)
-    .map(
-      (member) =>
-        (member = JSON.parse(
-          fs.readFileSync(`${databasePath}/${member}`, "utf8")
-        ))
-    )
-    .sort((a, b) => b.card - a.card)
-    .slice(0, 6);
-
   const connectMongo = require("@/lib/connectMongo").default;
   const Member = require("@/models/memberModel").default;
+  let members = [];
+  let isConnected = false;
 
   try {
     await connectMongo();
-    console.log("connected to mongoose");
+    isConnected = true;
 
     // const createMember = await Member.create({
-    //   name: "Nikoloz",
-    //   email: "gamogabo@gmail.com",
+    //   name: "Harriet R. Darlington",
+    //   personal: "44444444444",
+    //   birth: "1995-06-01T18:34:03.000Z",
+    //   badge: "first",
+    //   card: "0005",
+    //   register: "2021-12-17T19:34:03.000Z",
+    //   avatar: "/images/members/member-5.jpg",
     // });
 
-    const members = await Member.find();
-    console.log(members);
-
-    return {
-      props: { isConnected: true, members: data },
-    };
+    const data = await Member.find();
+    members = JSON.parse(JSON.stringify(data)).reverse().slice(0, 6);
   } catch (e) {
     console.error(e);
-    return {
-      props: { isConnected: false, members: data },
-    };
   }
+
+  return {
+    props: { isConnected, members },
+  };
 }
