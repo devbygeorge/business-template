@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "@/styles/Card.module.css";
 
 import { useEffect, useState } from "react";
-import barcodeGenerator from "../utils/BarcodeGenerator";
+import generateQR from "../utils/generateQR";
 
 export default function Card({
   name,
@@ -18,7 +18,7 @@ export default function Card({
   useEffect(() => {
     (async function () {
       setBarcode(
-        await barcodeGenerator(`https://yourcompany.com/members/${personal}`)
+        await generateQR(`https://yourcompany.com/members/${personal}`)
       );
     })();
   }, [personal]);

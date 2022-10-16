@@ -3,7 +3,7 @@ import multer from 'multer'
 import sharp from 'sharp'
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
-import CreateCard from '@/utils/CreateCard'
+import createCard from '@/utils/createCard'
 import { getSession } from 'next-auth/react'
 
 export default async function handler(req, res) {
@@ -50,7 +50,7 @@ async function saveOnServer(data, image){
   fs.writeFileSync(`./database/${data.personal}.json`, JSON.stringify(data), err => { if(err) console.log(err) })
 
   // Create card image
-  CreateCard(data)
+  createCard(data)
 }
 
 function getNewCard() {
