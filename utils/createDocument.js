@@ -1,142 +1,127 @@
 import { PDFDocument, degrees } from "pdf-lib";
-import fs from "fs";
+import { v2 as cloudinary } from "cloudinary";
+
+import * as fs from "fs";
 import path from "path";
 const publicPath = path.resolve(process.cwd(), "public");
 
-// --Generate Documents--
+import Member from "@/models/memberModel";
+import Document from "@/models/documentModel";
+
+// Declare reusable parameters
+const params = {
+  sizes: {
+    bgWidth: 595.44,
+    bgHeight: 841.92,
+    cardWidth: 163.6,
+    cardHeight: 257.76,
+  },
+  positions: {
+    offsetY: 177.5,
+    frontPosX: 286.5,
+    backPosX: 309,
+    decValueY: 162.5,
+    offsetYBack: 163,
+  },
+  orientations: {
+    frontDegree: 90,
+    backDegree: -90,
+  },
+};
+
+/***Generate Documents***/
 export default async function createDocument() {
-  try {
-    // First empty documents folder
-    fs.readdirSync(`${publicPath}/generation/documents`).forEach((document) => {
-      fs.unlink(`${publicPath}/generation/documents/${document}`, (error) => {
-        if (error) throw error;
-      });
+  const data = await Member.find();
+  const members = JSON.parse(JSON.stringify(data));
+  const totalDocsShouldCreate = Math.ceil(members.length / 5);
+
+  // Clear documents from database
+  const deleteDocuments = await Document.deleteMany();
+  let documents = [];
+
+  /* For loop - level 1 (while members.length / 5) */
+  for (let docNum = 0; docNum < totalDocsShouldCreate; docNum++) {
+    // Initialize clean document
+    const document = await PDFDocument.create();
+    const page = document.addPage();
+
+    // Set background image into document
+    const templateBuffer = fs.readFileSync(`${publicPath}/images/template.jpg`);
+    const templateEmbed = await document.embedJpg(templateBuffer);
+    page.drawImage(templateEmbed, {
+      x: 0,
+      y: page.getHeight() - params.sizes.bgHeight,
+      width: params.sizes.bgWidth,
+      height: params.sizes.bgHeight,
     });
 
-    let leftCards = leftCardNums();
+    let docName = "";
+    let cardPosY = page.getHeight() - params.positions.offsetY;
 
-    while (leftCards.length / 5 > 0) {
-      // Create document
-      const document = await PDFDocument.create();
-      const page = document.addPage();
+    const cardStartPoint = docNum * 5;
+    const cardEndPoint = docNum * 5 + 5;
 
-      // Set parameters
-      let parameters = {
-          sizes: {
-            bgWidth: 595.44,
-            bgHeight: 841.92,
-            cardWidth: 163.6,
-            cardHeight: 257.76,
-          },
-          positions: {
-            offsetY: 177.5,
-            frontPosX: 286.5,
-            backPosX: 309,
-            decValueY: 162.5,
-            offsetYBack: 163,
-          },
-          orientations: {
-            frontDegree: 90,
-            backDegree: -90,
-          },
-        },
-        jpgImageBytes,
-        jpgImage;
+    /* For loop - level 2 (i < 5) */
+    for (
+      let cardNum = cardStartPoint;
+      cardNum < cardEndPoint && cardNum < members.length;
+      cardNum++
+    ) {
+      // Insert members card images
+      const memberCardFrontFetch = await fetch(
+        members[cardNum].cardFrontSide
+      ).then((res) => res.arrayBuffer());
+      const memberCardBackFetch = await fetch(
+        members[cardNum].cardBackSide
+      ).then((res) => res.arrayBuffer());
+      const memberCardFrontEmbed = await document.embedPng(
+        memberCardFrontFetch
+      );
+      const memberCardBackEmbed = await document.embedPng(memberCardBackFetch);
 
-      // // Set template into document
-      jpgImageBytes = fs.readFileSync(`${publicPath}/generation/template.jpg`);
-      jpgImage = await document.embedJpg(jpgImageBytes);
-      page.drawImage(jpgImage, {
-        x: 0,
-        y: page.getHeight() - parameters.sizes.bgHeight,
-        width: parameters.sizes.bgWidth,
-        height: parameters.sizes.bgHeight,
+      page.drawImage(memberCardFrontEmbed, {
+        x: params.positions.frontPosX,
+        y: cardPosY,
+        width: params.sizes.cardWidth,
+        height: params.sizes.cardHeight + 1.5,
+        rotate: degrees(params.orientations.frontDegree),
       });
 
-      // Fill with members card images
-      let documentName = "";
-      let positionY = page.getHeight() - parameters.positions.offsetY;
+      page.drawImage(memberCardBackEmbed, {
+        x: params.positions.backPosX,
+        y: cardPosY + params.positions.offsetYBack,
+        width: params.sizes.cardWidth,
+        height: params.sizes.cardHeight,
+        rotate: degrees(params.orientations.backDegree),
+      });
 
-      for (let i = 0; i < 5; i++) {
-        const frontPath = `${publicPath}/generation/images/${leftCards[i]}-front.jpg`;
-        const backPath = `${publicPath}/generation/images/${leftCards[i]}-back.jpg`;
-        const bothImageExists =
-          fs.existsSync(frontPath) && fs.existsSync(backPath);
-
-        if (bothImageExists) {
-          // Set card front side into document
-          jpgImageBytes = fs.readFileSync(frontPath);
-          jpgImage = await document.embedJpg(jpgImageBytes);
-          page.drawImage(jpgImage, {
-            x: parameters.positions.frontPosX,
-            y: positionY,
-            width: parameters.sizes.cardWidth,
-            height: parameters.sizes.cardHeight + 1.5,
-            rotate: degrees(parameters.orientations.frontDegree),
-          });
-
-          // Set card back side into document
-          jpgImageBytes = fs.readFileSync(backPath);
-          jpgImage = await document.embedJpg(jpgImageBytes);
-          page.drawImage(jpgImage, {
-            x: parameters.positions.backPosX,
-            y: positionY + parameters.positions.offsetYBack,
-            width: parameters.sizes.cardWidth,
-            height: parameters.sizes.cardHeight,
-            rotate: degrees(parameters.orientations.backDegree),
-          });
-
-          // Y position changes per member images set
-          positionY -= parameters.positions.decValueY;
-
-          // Document name fills with card number
-          documentName = documentName + "-" + leftCards[i];
-        }
-      }
-      let correctDocumentName = documentName.replace("-", "");
-
-      // Save document into directory
-      const documentBytes = await document.save();
-      fs.writeFileSync(
-        `${publicPath}/generation/documents/${correctDocumentName}.pdf`,
-        documentBytes,
-        (err) => console.log(err)
-      );
-      console.log(`Document ${correctDocumentName} Created`);
-      leftCards = leftCardNums();
+      // Y position of cards changes for every member
+      cardPosY -= params.positions.decValueY;
+      // Filling document name with card numbers
+      docName = docName + "-" + members[cardNum].card;
     }
-  } catch (error) {
-    console.log(error);
-  }
-}
 
-function leftCardNums() {
-  const cardNames = fs
-    .readdirSync(`${publicPath}/generation/images`)
-    .map((card) => card.replace("-front.jpg", "").replace("-back.jpg", ""));
+    const cleanDocName = docName.replace("-", "");
 
-  let mergedCardNames = [];
-  for (let cardName of cardNames) {
-    const frontPath = `${publicPath}/generation/images/${cardName}-front.jpg`;
-    const backPath = `${publicPath}/generation/images/${cardName}-back.jpg`;
-    const existImages = fs.existsSync(frontPath) && fs.existsSync(backPath);
+    // Save document as base64
+    const base64Document = await document.saveAsBase64({ dataUri: true });
+    console.log(`Document ${cleanDocName} Created`);
 
-    if (existImages && !mergedCardNames.includes(cardName)) {
-      mergedCardNames.push(cardName);
-    }
+    // Upload document at cloudinary storage
+    const uploadDocument = await cloudinary.uploader.upload(base64Document);
+
+    // Save document at database
+    const createDocument = await Document.create({
+      name: cleanDocName,
+      url: uploadDocument.secure_url,
+    });
+
+    // Push in documents array to use it on frontend
+    documents.push({
+      name: cleanDocName,
+      url: uploadDocument.secure_url,
+    });
   }
 
-  const documents = fs.readdirSync(`${publicPath}/generation/documents`);
-  let usedCards = [];
-
-  for (let document of documents) {
-    document = document.replace(".pdf", "").split("-");
-    for (let cardName of document) {
-      usedCards.push(cardName);
-    }
-  }
-
-  return mergedCardNames.filter(
-    (cardName) => !usedCards.find((usedCardName) => usedCardName == cardName)
-  );
+  return documents;
 }

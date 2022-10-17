@@ -1,32 +1,32 @@
 import Link from "next/link";
-import fs from "fs";
-import path from "path";
 import { useState } from "react";
 
-export default function Download({ data }) {
-  const [documents, setDocuments] = useState(data);
+export default function Download({ documents }) {
+  const [documentsState, setDocumentsState] = useState(documents);
 
-  const generateHandler = async () => {
+  const handleGenerate = async () => {
     const response = await fetch("/api/documents", { method: "POST" });
     const data = await response.json();
-    setDocuments(data);
+
+    if (response.status === 200) setDocumentsState(data.documents);
+    console.log(data.message);
   };
 
   return (
     <main className="main">
       <div className="container">
         <div className="documents">
-          <button className="button" onClick={generateHandler}>
+          <button className="button" onClick={handleGenerate}>
             Generate Documents
           </button>
           <hr />
 
-          {documents.map((document, index) => {
+          {documentsState.map((document, index) => {
             return (
-              <Link key={index} href={`/generation/documents/${document}`}>
+              <Link key={index} href={document.url}>
                 <a download target="_blank">
                   <article className="document-canvas">
-                    <span>{document}</span>
+                    <span>{document.name}</span>
                   </article>
                 </a>
               </Link>
@@ -41,16 +41,20 @@ export default function Download({ data }) {
 }
 
 export async function getServerSideProps() {
-  const documentsPath = path.resolve(
-    process.cwd(),
-    "public/generation/documents"
-  );
+  const connectMongo = require("@/lib/connectMongo").default;
+  const Document = require("@/models/documentModel").default;
+  let documents = [];
 
-  const data = fs.readdirSync(documentsPath);
+  try {
+    await connectMongo();
+
+    const data = await Document.find();
+    documents = JSON.parse(JSON.stringify(data));
+  } catch (e) {
+    console.error(e);
+  }
 
   return {
-    props: {
-      data,
-    },
+    props: { documents },
   };
 }
