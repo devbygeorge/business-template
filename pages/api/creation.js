@@ -1,9 +1,9 @@
-import sharp from "sharp";
 import multer from "multer";
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 // import createCard from "@/utils/createCard";
 import { getSession } from "next-auth/react";
+import { v2 as cloudinary } from "cloudinary";
 
 import connectMongo from "@/lib/connectMongo";
 import Member from "@/models/memberModel";
@@ -33,16 +33,14 @@ export default async function handler(req, res) {
       return res.status(403).json({ error: "Personal number is in use!" });
     }
 
-    // Optimize and save avatar
-    await sharp(image.buffer)
-      .rotate()
-      .resize({ width: 1000 })
-      .toFile(`./public/images/members/${data.personal}.jpg`);
+    const base64Avatar =
+      "data:image/png;base64," + image.buffer.toString("base64");
+    const uploadAvatar = await cloudinary.uploader.upload(base64Avatar);
 
     const userBody = {
       ...data,
       userId: session.userId,
-      avatar: `/images/members/${data.personal}.jpg`,
+      avatar: uploadAvatar.secure_url,
     };
 
     if (currentMember) {
