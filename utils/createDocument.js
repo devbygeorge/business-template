@@ -1,5 +1,4 @@
 import { PDFDocument, degrees } from "pdf-lib";
-import isCorrupted from "is-corrupted-jpeg";
 import fs from "fs";
 import path from "path";
 const publicPath = path.resolve(process.cwd(), "public");
@@ -114,7 +113,6 @@ export default async function createDocument() {
 function leftCardNums() {
   const cardNames = fs
     .readdirSync(`${publicPath}/generation/images`)
-    .filter((card) => !isCorrupted(`${publicPath}/generation/images/${card}`))
     .map((card) => card.replace("-front.jpg", "").replace("-back.jpg", ""));
 
   let mergedCardNames = [];
