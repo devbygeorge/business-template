@@ -9,6 +9,8 @@ const memberSchema = new Schema({
   register: String,
   avatar: String,
   userId: String,
+  cardFrontSide: String,
+  cardBackSide: String,
 });
 
 const Member = models.Member || model("Member", memberSchema);

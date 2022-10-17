@@ -1,7 +1,7 @@
 import multer from "multer";
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-// import createCard from "@/utils/createCard";
+import createCard from "@/utils/createCard";
 import { getSession } from "next-auth/react";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -33,14 +33,28 @@ export default async function handler(req, res) {
       return res.status(403).json({ error: "Personal number is in use!" });
     }
 
-    const base64Avatar =
-      "data:image/png;base64," + image.buffer.toString("base64");
+    const base64Avatar = getBase64Image(image.buffer);
+    const { cardFrontSide, cardBackSide } = await createCard(
+      data,
+      base64Avatar
+    );
+    const base64CardFrontSide = getBase64Image(cardFrontSide);
+    const base64CardBackSide = getBase64Image(cardBackSide);
+
     const uploadAvatar = await cloudinary.uploader.upload(base64Avatar);
+    const uploadCardFrontSide = await cloudinary.uploader.upload(
+      base64CardFrontSide
+    );
+    const uploadCardBackSide = await cloudinary.uploader.upload(
+      base64CardBackSide
+    );
 
     const userBody = {
       ...data,
       userId: session.userId,
       avatar: uploadAvatar.secure_url,
+      cardFrontSide: uploadCardFrontSide.secure_url,
+      cardBackSide: uploadCardBackSide.secure_url,
     };
 
     if (currentMember) {
@@ -56,8 +70,6 @@ export default async function handler(req, res) {
       userBody.card = await getNextCard();
       const createMember = await Member.create(userBody);
       console.log("Member Created!", createMember);
-
-      // createCard(data);
     }
     res.status(200).json({ success: "User proceed successfully" });
   } catch (e) {
@@ -78,6 +90,10 @@ async function getNextCard() {
   }
 
   return nextCard;
+}
+
+function getBase64Image(buffer) {
+  return "data:image/png;base64," + buffer.toString("base64");
 }
 
 function runMiddleware(req, res, fn) {
