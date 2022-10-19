@@ -1,3 +1,3 @@
 # Projects-Template
 
-[https://projectstemplate.vercel.app/](https://projectstemplate.vercel.app/)
+[https://projects-template.up.railway.app/](https://projects-template.up.railway.app/)
