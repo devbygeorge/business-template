@@ -54,20 +54,20 @@ export default async function handler(req, res) {
       // cardBackSide: uploadCardBackSide.secure_url,
     };
 
-    if (currentMember) {
-      // Member data exists in db, let's update
-      userBody.card = currentMember.card;
-      // const updateMember = await Member.updateOne(
-      //   { userId: session.userId },
-      //   userBody
-      // );
-      console.log("Member Updated!", updateMember);
-    } else {
-      // Member data doesn't exist in db, let's create new one
-      userBody.card = await getNextCard();
-      // const createMember = await Member.create(userBody);
-      console.log("Member Created!", createMember);
-    }
+    // if (currentMember) {
+    //   // Member data exists in db, let's update
+    //   userBody.card = currentMember.card;
+    //   const updateMember = await Member.updateOne(
+    //     { userId: session.userId },
+    //     userBody
+    //   );
+    //   console.log("Member Updated!", updateMember);
+    // } else {
+    //   // Member data doesn't exist in db, let's create new one
+    //   userBody.card = await getNextCard();
+    //   const createMember = await Member.create(userBody);
+    //   console.log("Member Created!", createMember);
+    // }
     res.status(200).json({ success: "User proceed successfully" });
   } catch (e) {
     console.error(e);

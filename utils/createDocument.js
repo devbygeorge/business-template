@@ -27,8 +27,7 @@ const params = {
 
 /***Generate Documents***/
 export default async function createDocument() {
-  const data = await Member.find();
-  const members = JSON.parse(JSON.stringify(data));
+  const members = []
   const totalDocsShouldCreate = Math.ceil(members.length / 5);
 
   // Clear documents from database
