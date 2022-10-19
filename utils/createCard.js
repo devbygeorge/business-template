@@ -25,6 +25,7 @@ export default async function createCard(data, avatar) {
       badgeImage,
       avatar,
     },
+    puppeteerArgs: { args: ["--no-sandbox"] },
   }).catch((err) => console.log(err));
 
   const cardBackSide = await nodeHtmlToImage({
@@ -39,6 +40,7 @@ export default async function createCard(data, avatar) {
       badge: data.badge,
       barcode,
     },
+    puppeteerArgs: { args: ["--no-sandbox"] },
   }).catch((err) => console.log(err));
 
   console.log(`Member ${data.card} Card Created...`);
