@@ -30,11 +30,12 @@ export default async function handler(req, res) {
     //   return res.status(403).json({ error: "Personal number is in use!" });
     // }
 
-    // const base64Avatar = getBase64Image(image.buffer);
-    // const { cardFrontSide, cardBackSide } = await createCard(
-    //   data,
-    //   base64Avatar
-    // );
+    const base64Avatar = getBase64Image(image.buffer);
+    const { cardFrontSide, cardBackSide } = await createCard(
+      data,
+      base64Avatar
+    );
+    console.log('Testing cards...', cardFrontSide);
     // const base64CardFrontSide = getBase64Image(cardFrontSide);
     // const base64CardBackSide = getBase64Image(cardBackSide);
 
