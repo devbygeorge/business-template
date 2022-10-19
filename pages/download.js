@@ -41,15 +41,13 @@ export default function Download({ documents }) {
 }
 
 export async function getServerSideProps() {
-  const connectMongo = require("@/lib/connectMongo").default;
-  const Document = require("@/models/documentModel").default;
   let documents = [];
 
   try {
-    await connectMongo();
+    // await connectMongo();
 
-    const data = await Document.find();
-    documents = JSON.parse(JSON.stringify(data));
+    // const data = await Document.find();
+    // documents = JSON.parse(JSON.stringify(data));
   } catch (e) {
     console.error(e);
   }

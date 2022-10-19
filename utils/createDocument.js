@@ -1,12 +1,8 @@
 import { PDFDocument, degrees } from "pdf-lib";
-import { v2 as cloudinary } from "cloudinary";
 
 import * as fs from "fs";
 import path from "path";
 const publicPath = path.resolve(process.cwd(), "public");
-
-import Member from "@/models/memberModel";
-import Document from "@/models/documentModel";
 
 // Declare reusable parameters
 const params = {
@@ -36,7 +32,7 @@ export default async function createDocument() {
   const totalDocsShouldCreate = Math.ceil(members.length / 5);
 
   // Clear documents from database
-  const deleteDocuments = await Document.deleteMany();
+  // const deleteDocuments = await Document.deleteMany();
   let documents = [];
 
   /* For loop - level 1 (while members.length / 5) */
@@ -108,19 +104,19 @@ export default async function createDocument() {
     console.log(`Document ${cleanDocName} Created`);
 
     // Upload document at cloudinary storage
-    const uploadDocument = await cloudinary.uploader.upload(base64Document);
+    // const uploadDocument = await cloudinary.uploader.upload(base64Document);
 
     // Save document at database
-    const createDocument = await Document.create({
-      name: cleanDocName,
-      url: uploadDocument.secure_url,
-    });
+    // const createDocument = await Document.create({
+    //   name: cleanDocName,
+    //   url: uploadDocument.secure_url,
+    // });
 
     // Push in documents array to use it on frontend
-    documents.push({
-      name: cleanDocName,
-      url: uploadDocument.secure_url,
-    });
+    // documents.push({
+    //   name: cleanDocName,
+    //   url: uploadDocument.secure_url,
+    // });
   }
 
   return documents;

@@ -37,15 +37,13 @@ export default function Members({ members }) {
 }
 
 export async function getServerSideProps() {
-  const connectMongo = require("@/lib/connectMongo").default;
-  const Member = require("@/models/memberModel").default;
   let members = [];
 
   try {
-    await connectMongo();
+    // await connectMongo();
 
-    const data = await Member.find();
-    members = JSON.parse(JSON.stringify(data));
+    // const data = await Member.find();
+    // members = JSON.parse(JSON.stringify(data));
   } catch (e) {
     console.error(e);
   }

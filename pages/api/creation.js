@@ -1,12 +1,9 @@
 import multer from "multer";
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-import createCard from "@/utils/createCard";
-import { getSession } from "next-auth/react";
-import { v2 as cloudinary } from "cloudinary";
 
-import connectMongo from "@/lib/connectMongo";
-import Member from "@/models/memberModel";
+import { getSession } from "next-auth/react";
+import createCard from "@/utils/createCard";
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, upload.single("avatar"));
@@ -21,54 +18,54 @@ export default async function handler(req, res) {
 
   try {
     // Connect to db
-    await connectMongo();
+    // await connectMongo();
 
     // Validate that personal number entered by member is unique
-    const currentMember = await Member.findOne({ userId: session.userId });
-    const personWithSameId = await Member.findOne({
-      personal: data.personal,
-    });
+    // const currentMember = await Member.findOne({ userId: session.userId });
+    // const personWithSameId = await Member.findOne({
+    //   personal: data.personal,
+    // });
 
-    if (personWithSameId && personWithSameId.userId !== session.userId) {
-      return res.status(403).json({ error: "Personal number is in use!" });
-    }
+    // if (personWithSameId && personWithSameId.userId !== session.userId) {
+    //   return res.status(403).json({ error: "Personal number is in use!" });
+    // }
 
-    const base64Avatar = getBase64Image(image.buffer);
-    const { cardFrontSide, cardBackSide } = await createCard(
-      data,
-      base64Avatar
-    );
-    const base64CardFrontSide = getBase64Image(cardFrontSide);
-    const base64CardBackSide = getBase64Image(cardBackSide);
+    // const base64Avatar = getBase64Image(image.buffer);
+    // const { cardFrontSide, cardBackSide } = await createCard(
+    //   data,
+    //   base64Avatar
+    // );
+    // const base64CardFrontSide = getBase64Image(cardFrontSide);
+    // const base64CardBackSide = getBase64Image(cardBackSide);
 
-    const uploadAvatar = await cloudinary.uploader.upload(base64Avatar);
-    const uploadCardFrontSide = await cloudinary.uploader.upload(
-      base64CardFrontSide
-    );
-    const uploadCardBackSide = await cloudinary.uploader.upload(
-      base64CardBackSide
-    );
+    // const uploadAvatar = await cloudinary.uploader.upload(base64Avatar);
+    // const uploadCardFrontSide = await cloudinary.uploader.upload(
+    //   base64CardFrontSide
+    // );
+    // const uploadCardBackSide = await cloudinary.uploader.upload(
+    //   base64CardBackSide
+    // );
 
     const userBody = {
       ...data,
       userId: session.userId,
-      avatar: uploadAvatar.secure_url,
-      cardFrontSide: uploadCardFrontSide.secure_url,
-      cardBackSide: uploadCardBackSide.secure_url,
+      // avatar: uploadAvatar.secure_url,
+      // cardFrontSide: uploadCardFrontSide.secure_url,
+      // cardBackSide: uploadCardBackSide.secure_url,
     };
 
     if (currentMember) {
       // Member data exists in db, let's update
       userBody.card = currentMember.card;
-      const updateMember = await Member.updateOne(
-        { userId: session.userId },
-        userBody
-      );
+      // const updateMember = await Member.updateOne(
+      //   { userId: session.userId },
+      //   userBody
+      // );
       console.log("Member Updated!", updateMember);
     } else {
       // Member data doesn't exist in db, let's create new one
       userBody.card = await getNextCard();
-      const createMember = await Member.create(userBody);
+      // const createMember = await Member.create(userBody);
       console.log("Member Created!", createMember);
     }
     res.status(200).json({ success: "User proceed successfully" });
@@ -81,13 +78,13 @@ export default async function handler(req, res) {
 async function getNextCard() {
   let nextCard = "0001";
 
-  const data = await Member.find();
-  const members = JSON.parse(JSON.stringify(data));
+  // const data = await Member.find();
+  // const members = JSON.parse(JSON.stringify(data));
 
-  if (members) {
-    const lastCard = members[members.length - 1].card;
-    nextCard = JSON.stringify(parseInt(lastCard) + 1).padStart(4, "0");
-  }
+  // if (members) {
+  //   const lastCard = members[members.length - 1].card;
+  //   nextCard = JSON.stringify(parseInt(lastCard) + 1).padStart(4, "0");
+  // }
 
   return nextCard;
 }

@@ -13,22 +13,19 @@ export default function Home({ members, isConnected }) {
 }
 
 export async function getServerSideProps() {
-  const connectMongo = require("@/lib/connectMongo").default;
-  const Member = require("@/models/memberModel").default;
   let members = [];
-  let isConnected = false;
 
   try {
-    await connectMongo();
-    isConnected = true;
+    // await connectMongo();
+    // isConnected = true;
     
-    const data = await Member.find();
-    members = JSON.parse(JSON.stringify(data)).reverse().slice(0, 6);
+    // const data = await Member.find();
+    // members = JSON.parse(JSON.stringify(data)).reverse().slice(0, 6);
   } catch (e) {
     console.error(e);
   }
 
   return {
-    props: { isConnected, members },
+    props: { members },
   };
 }
