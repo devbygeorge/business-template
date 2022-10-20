@@ -1,6 +1,8 @@
 import Hero from "@/components/Hero";
 import Carousel from "@/components/Carousel";
 
+import connectMongo from "@/lib/connectMongo";
+
 export default function Home({ members, isConnected }) {
   console.log("mongodb connected", isConnected);
 
@@ -13,12 +15,13 @@ export default function Home({ members, isConnected }) {
 }
 
 export async function getServerSideProps() {
+  let isConnected = false;
   let members = [];
 
   try {
-    // await connectMongo();
-    // isConnected = true;
-    
+    await connectMongo();
+    isConnected = true;
+
     // const data = await Member.find();
     // members = JSON.parse(JSON.stringify(data)).reverse().slice(0, 6);
   } catch (e) {
@@ -26,6 +29,6 @@ export async function getServerSideProps() {
   }
 
   return {
-    props: { members },
+    props: { members, isConnected },
   };
 }
