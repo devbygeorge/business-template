@@ -10,6 +10,7 @@ const memberSchema = new Schema({
   avatar: String,
   cardFront: Buffer,
   cardBack: Buffer,
+  userId: String,
 });
 
 const Member = models.Member || model("Member", memberSchema);
