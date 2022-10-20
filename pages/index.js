@@ -23,7 +23,7 @@ export async function getServerSideProps() {
     await connectMongo();
     isConnected = true;
 
-    const data = await Member.find();
+    const data = await Member.find({}, "name personal badge card avatar");
     members = JSON.parse(JSON.stringify(data)).reverse().slice(0, 6);
   } catch (e) {
     console.error(e);

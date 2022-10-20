@@ -11,25 +11,26 @@ export default function Members({ members }) {
         <input className={styles.search} type="text" placeholder="Search...." />
         <p>Members Quantity - {members.length}</p>
         <ul className={styles.list}>
-          {members && members.map((member) => {
-            return (
-              <li key={member.card}>
-                <Link href={`/members/${member.personal}`}>
-                  <a>
-                    <div className={styles.image}>
-                      <Image
-                        src={member.avatar}
-                        layout="fill"
-                        objectFit="cover"
-                        alt="Profile Picture"
-                      />
-                    </div>
-                    <span>{member.name}</span>
-                  </a>
-                </Link>
-              </li>
-            );
-          })}
+          {members &&
+            members.map((member) => {
+              return (
+                <li key={member.card}>
+                  <Link href={`/members/${member.personal}`}>
+                    <a>
+                      <div className={styles.image}>
+                        <Image
+                          src={member.avatar}
+                          layout="fill"
+                          objectFit="cover"
+                          alt="Profile Picture"
+                        />
+                      </div>
+                      <span>{member.name}</span>
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </main>
@@ -37,13 +38,16 @@ export default function Members({ members }) {
 }
 
 export async function getServerSideProps() {
+  const connectMongo = require("@/lib/connectMongo").default;
+  const Member = require("@/models/memberModel").default;
+
   let members = [];
 
   try {
-    // await connectMongo();
+    await connectMongo();
 
-    // const data = await Member.find();
-    // members = JSON.parse(JSON.stringify(data));
+    const data = await Member.find({}, "name personal card avatar");
+    members = JSON.parse(JSON.stringify(data));
   } catch (e) {
     console.error(e);
   }

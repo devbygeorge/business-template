@@ -30,15 +30,19 @@ export default function Member({ member }) {
 }
 
 export async function getServerSideProps(context) {
+  const connectMongo = require("@/lib/connectMongo").default;
+  const Member = require("@/models/memberModel").default;
   const { slug } = context.params;
 
   let member = {};
 
   try {
-    // await connectMongo();
-
-    // const data = await Member.findOne({ personal: slug });
-    // member = JSON.parse(JSON.stringify(data));
+    await connectMongo();
+    const data = await Member.findOne(
+      { personal: slug },
+      "name personal birth badge avatar card register"
+    );
+    member = JSON.parse(JSON.stringify(data));
   } catch (e) {
     console.error(e);
   }

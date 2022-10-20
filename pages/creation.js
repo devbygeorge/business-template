@@ -66,18 +66,21 @@ export default function Creation({ nextCard }) {
 }
 
 export async function getServerSideProps() {
+  const connectMongo = require("@/lib/connectMongo").default;
+  const Member = require("@/models/memberModel").default;
+
   let nextCard = "0001";
 
   try {
-    // await connectMongo();
+    await connectMongo();
 
-    // const data = await Member.find();
-    // const members = JSON.parse(JSON.stringify(data));
+    const data = await Member.find({}, "card");
+    const members = JSON.parse(JSON.stringify(data));
 
-    // if (members) {
-    //   const lastCard = members[members.length - 1].card;
-    //   nextCard = JSON.stringify(parseInt(lastCard) + 1).padStart(4, "0");
-    // }
+    if (members.length) {
+      const lastCard = members[members.length - 1].card;
+      nextCard = JSON.stringify(parseInt(lastCard) + 1).padStart(4, "0");
+    }
   } catch (e) {
     console.error(e);
   }
