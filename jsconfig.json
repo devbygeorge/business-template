@@ -5,7 +5,8 @@
       "@/public/*": ["public/*"],
       "@/components/*": ["components/*"],
       "@/styles/*": ["styles/*"],
-      "@/utils/*": ["utils/*"],
+      "@/models/*": ["models/*"],
+      "@/lib/*": ["lib/*"]
     }
   }
 }

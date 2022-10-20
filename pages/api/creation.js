@@ -3,7 +3,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 import { getSession } from "next-auth/react";
-import createCard from "@/utils/createCard";
+import createCard from "@/lib/createCard";
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, upload.single("avatar"));
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       data,
       base64Avatar
     );
-    console.log('Testing cards...', cardFrontSide);
+    console.log("Testing cards...", cardFrontSide);
     // const base64CardFrontSide = getBase64Image(cardFrontSide);
     // const base64CardBackSide = getBase64Image(cardBackSide);
 

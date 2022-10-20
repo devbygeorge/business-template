@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "@/styles/Card.module.css";
 
 import { useEffect, useState } from "react";
-import generateQR from "../utils/generateQR";
+import generateQR from "@/lib/generateQR";
 
 export default function Card({
   name,
