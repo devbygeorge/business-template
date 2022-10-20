@@ -1,14 +1,17 @@
 import { Schema, model, models } from "mongoose";
 
-const testSchema = new Schema({
+const memberSchema = new Schema({
   name: String,
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  personal: String,
+  birth: String,
+  badge: String,
+  card: String,
+  register: String,
+  avatar: String,
+  cardFront: Buffer,
+  cardBack: Buffer,
 });
 
-const Test = models.Test || model("Test", testSchema);
+const Member = models.Member || model("Member", memberSchema);
 
-export default Test;
+export default Member;
