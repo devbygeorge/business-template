@@ -49,7 +49,9 @@ export async function getServerSideProps() {
     await connectMongo();
 
     const data = await Documents.find();
-    documents = JSON.parse(JSON.stringify(data[0].data));
+    if (data.length) {
+      documents = JSON.parse(JSON.stringify(data[0].data));
+    }
   } catch (e) {
     console.error(e);
   }
