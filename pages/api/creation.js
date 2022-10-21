@@ -43,23 +43,25 @@ export default async function handler(req, res) {
     const base64Avatar = getBase64Image(image.buffer);
     const uploadAvatar = await cloudinary.uploader.upload(base64Avatar);
 
+    const card = currentMember ? currentMember.card : await getNextCard();
+
     const { cardFrontSide, cardBackSide } = await createCard(
       data,
-      base64Avatar
+      base64Avatar,
+      card
     );
-    console.log("Testing cards...");
 
     const userBody = {
       ...data,
       userId: session.userId,
       avatar: uploadAvatar.secure_url,
+      card: card,
       cardFront: cardFrontSide,
       cardBack: cardBackSide,
     };
 
     if (currentMember) {
       // Member data exists in db, let's update
-      userBody.card = currentMember.card;
       const updateMember = await Member.updateOne(
         { userId: session.userId },
         userBody
@@ -67,7 +69,6 @@ export default async function handler(req, res) {
       console.log("Member Updated!");
     } else {
       // Member data doesn't exist in db, let's create new one
-      userBody.card = await getNextCard();
       const createMember = await Member.create(userBody);
       console.log("Member Created!");
     }
