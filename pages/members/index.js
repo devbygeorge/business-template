@@ -1,18 +1,39 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { useState } from "react";
+
 import styles from "@/styles/Members.module.css";
 
 export default function Members({ members }) {
+  const [value, setValue] = useState("");
+  const [filteredMembers, setFilteredMembers] = useState(members);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+
+    const filterMembers = members.filter((member) =>
+      member.name.toLowerCase().includes(e.target.value)
+    );
+
+    setFilteredMembers(filterMembers);
+  };
+
   return (
     <main className="main">
       <div className="container mb-4">
         <h5>Members</h5>
-        <input className={styles.search} type="text" placeholder="Search...." />
-        <p>Members Quantity - {members.length}</p>
+        <input
+          className={styles.search}
+          type="text"
+          value={value}
+          placeholder="Search...."
+          onChange={handleChange}
+        />
+        <p>Members Quantity - {filteredMembers.length}</p>
         <ul className={styles.list}>
-          {members &&
-            members.map((member) => {
+          {filteredMembers &&
+            filteredMembers.map((member) => {
               return (
                 <li key={member.card}>
                   <Link href={`/members/${member.personal}`}>
