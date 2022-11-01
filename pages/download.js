@@ -3,14 +3,37 @@ import { useState } from "react";
 
 export default function Download({ documents }) {
   const [documentsState, setDocumentsState] = useState(documents);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleGenerate = async () => {
-    const response = await fetch("/api/documents", { method: "POST" });
-    const data = await response.json();
+    setLoading(true);
 
-    if (response.status === 200) setDocumentsState(data.documents);
-    console.log(data.message);
+    const response = await fetch("/api/documents", { method: "POST" });
+
+    setLoading(false);
+
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data.message);
+
+      setDocumentsState(data.documents);
+    } else {
+      setError(true);
+    }
   };
+
+  if (loading) {
+    return <div className="preloader"></div>;
+  }
+
+  if (error) {
+    return (
+      <div className="container">
+        Something happened. Please try again later!
+      </div>
+    );
+  }
 
   return (
     <main className="main">

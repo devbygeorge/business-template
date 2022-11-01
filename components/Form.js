@@ -3,6 +3,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import FormData from "form-data";
 import styles from "@/styles/Form.module.css";
 
+import { useState } from "react";
+import { useRouter } from "next/router";
+
 export default function Form({
   name,
   setName,
@@ -18,8 +21,14 @@ export default function Form({
   card,
   register,
 }) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("name", name);
@@ -34,12 +43,29 @@ export default function Form({
       method: "POST",
       body: formData,
     });
-    const data = await response.json();
-    console.log(data)
+
+    setLoading(false);
+
+    if (response.status === 200) {
+      const data = await response.json();
+      console.log(data);
+
+      router.push(`/members/${personal}`);
+    } else {
+      setError(true);
+    }
   };
 
+  if (loading) {
+    return <div className="preloader"></div>;
+  }
+
+  if (error) {
+    return <div>Something happened. Please try again later!</div>;
+  }
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div>
         <label className="form-label">name and surname</label>
         <input
@@ -100,12 +126,7 @@ export default function Form({
       </div>
 
       <div>
-        <input
-          className={styles.button}
-          onClick={(e) => handleSubmit(e)}
-          type="submit"
-          value="Submit"
-        />
+        <input className={styles.button} type="submit" value="Submit" />
       </div>
     </form>
   );
