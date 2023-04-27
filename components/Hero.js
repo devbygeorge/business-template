@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className={styles.hero}>
       <div className="container position-relative text-center">
-        <h1 className={styles.heading}>Company Projects Template</h1>
+        <h1 className={styles.heading}>Company Business Template</h1>
         <Image
           src="/images/logo.png"
           alt="company logo"
