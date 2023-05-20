@@ -35,7 +35,7 @@ export default function Header() {
               <Link href="/creation">Create Card</Link>
             </li>
             <li>
-              <Link href="/download">Download PDFs</Link>
+              <Link href="/download">View Documents</Link>
             </li>
             <li>
               <a>
