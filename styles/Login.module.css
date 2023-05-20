@@ -84,14 +84,23 @@
   opacity: 0;
 }
 
+.container:hover .user {
+  border-radius: 3px 3px 0 0;
+}
+
 .container:hover .logout {
   opacity: 1;
-  top: 60px;
+  top: 59px;
 }
 
 @media (max-width: 75em) {
   .container {
-    width: 100%;
+    width: calc(100% - 1.875rem);
+    margin-top: 0.63rem;
+  }
+
+  .gitbutton {
+    margin-top: 0.63rem;
   }
 
   .user {

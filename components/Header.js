@@ -38,9 +38,7 @@ export default function Header() {
               <Link href="/download">View Documents</Link>
             </li>
             <li>
-              <a>
-                <LoginForm />
-              </a>
+              <LoginForm />
             </li>
           </ul>
           <img

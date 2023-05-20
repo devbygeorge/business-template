@@ -13,6 +13,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <>
       <Head>
         <title>Company Business Template</title>
+        <meta
+          name="description"
+          content="Card issuance platform for companies"
+        />
         <link rel="icon" href="/images/logo.png" />
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"

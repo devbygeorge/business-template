@@ -207,7 +207,7 @@ section {
   color: var(--dark-blue);
 }
 
-.navbar li > a {
+.navbar li {
   margin-left: 1.875rem;
 }
 
@@ -267,7 +267,7 @@ section {
 }
 
 .navbar-mobile a {
-  padding: 0.63rem 1.25rem;
+  padding: 0.63rem 0;
   font-size: 0.94rem;
 }
 
