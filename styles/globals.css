@@ -72,10 +72,33 @@ section {
   color: #fff;
   border: none;
   transition: 0.3s ease-out;
+  position: relative;
 }
 
 .button:hover {
   background: var(--blue);
+}
+
+.button[data-loading="true"] {
+  pointer-events: none;
+}
+
+.button[data-loading="true"] span {
+  visibility: hidden;
+}
+
+.button[data-loading="true"]::before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: calc(50% - 1rem);
+  border: 4px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  -webkit-animation: animate-preloader 1.5s linear infinite;
+  animation: animate-preloader 1.5s linear infinite;
 }
 
 /*--------------------------------------------------------------

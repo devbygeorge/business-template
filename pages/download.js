@@ -23,10 +23,6 @@ export default function Download({ documents }) {
     }
   };
 
-  if (loading) {
-    return <div className="preloader"></div>;
-  }
-
   if (error) {
     return (
       <div className="container">
@@ -39,8 +35,12 @@ export default function Download({ documents }) {
     <main className="main">
       <div className="container">
         <div className="documents">
-          <button className="button" onClick={handleGenerate}>
-            Generate Documents
+          <button
+            className="button"
+            onClick={handleGenerate}
+            data-loading={loading ? "true" : "false"}
+          >
+            <span>Generate Documents</span>
           </button>
           <hr />
 
