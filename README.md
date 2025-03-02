@@ -36,5 +36,3 @@ To run the project locally, follow these steps:
 3. Install the dependencies using `npm install`.
 4. Start the development server using `npm start`.
 5. Open the browser and go to `http://localhost:3000`.
-
-If you would like to see the demo, simply follow the link https://projects-template.com.
